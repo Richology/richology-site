@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Richology Prompt Lab</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#111836;
+      --card2:#0f1530;
+      --text:#e8ecff;
+      --muted:#aab3d6;
+      --line:rgba(255,255,255,.12);
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(34,197,94,.25), transparent 55%),
+        radial-gradient(1100px 700px at 50% 100%, rgba(245,158,11,.18), transparent 55%),
+        var(--bg);
+      min-height:100vh;
+    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 18px 60px;
+    }
+    header{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .title{
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+      margin-top:14px;
+    }
+    @media (max-width: 960px){
+      .grid{grid-template-columns:1fr;}
+      header{flex-direction:column; align-items:flex-start;}
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:16px 16px 12px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background:rgba(0,0,0,.12);
+    }
+    .card .hd h2{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .card .bd{
+      padding:16px;
+    }
+    label{
+      display:block;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+    textarea, input, select{
+      width:100%;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      padding:12px 12px;
+      outline:none;
+      transition:.15s;
+      font-family:var(--sans);
+    }
+    textarea{min-height:92px; resize:vertical; line-height:1.5;}
+    textarea:focus, input:focus, select:focus{
+      border-color:rgba(124,92,255,.65);
+      box-shadow:0 0 0 4px rgba(124,92,255,.18);
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 540px){
+      .row{grid-template-columns:1fr;}
+    }
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+    button{
+      border:0;
+      border-radius:14px;
+      padding:11px 13px;
+      font-weight:700;
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      cursor:pointer;
+      transition:.15s transform, .15s background, .15s border;
+      user-select:none;
+    }
+    button:hover{transform:translateY(-1px); background:rgba(255,255,255,.09);}
+    button.primary{
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.55));
+      border-color:rgba(124,92,255,.6);
+    }
+    button.primary:hover{background:linear-gradient(135deg, rgba(124,92,255,1), rgba(124,92,255,.62));}
+    button.good{
+      background:linear-gradient(135deg, rgba(34,197,94,.95), rgba(34,197,94,.55));
+      border-color:rgba(34,197,94,.6);
+    }
+    button.ghost{
+      background:transparent;
+    }
+    button.danger{
+      background:rgba(239,68,68,.12);
+      border-color:rgba(239,68,68,.35);
+    }
+    .hint{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+    .chips{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;
+    }
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip:hover{border-color:rgba(124,92,255,.5); color:var(--text);}
+    pre{
+      margin:0;
+      white-space:pre-wrap;
+      word-break:break-word;
+      font-family:var(--mono);
+      font-size:12.5px;
+      line-height:1.55;
+      background:rgba(0,0,0,.25);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+    }
+    .meta{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;
+      color:var(--muted); font-size:12px;
+    }
+    .toast{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      background:rgba(17,24,54,.92);
+      border:1px solid var(--line);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      box-shadow:var(--shadow);
+      font-size:13px;
+      opacity:0;
+      pointer-events:none;
+      transition:.2s opacity, .2s transform;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px);}
+    .small{
+      font-size:12px;
+      color:var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="title">Richology Prompt Lab</div>
+        <div class="subtitle">
+          用一句话输入你的学习需求 → 生成一段<strong>可复制给任何 AI</strong>的「学习教练提示词」，可以自动追问精准定位需求 + 输出学习行动方案 + 可复用的万能教练提示词。
+        </div>
+      </div>
+      <div class="pill">⚡ Richology · 授人以鱼&授人以渔 ⚡</div>
+    </header>
+
+    <div class="grid">
+      <!-- Left: Builder -->
+      <section class="card">
+        <div class="hd">
+          <h2>生成器</h2>
+        </div>
+        <div class="bd">
+          <label for="goal">用一句话说出你的学习目标/需求</label>
+          <textarea id="goal" placeholder="例如：我想在3天内学会vibe coding并做出一个可访问的网页工具"></textarea>
+
+          <div class="chips" id="examples">
+            <div class="chip" data-eg="我想在7天内把结构化思考变成可复用的提示词库，并用一个网页工具分享给朋友">示例：做一个可复用的提示词库</div>
+            <div class="chip" data-eg="我想在14天内学会用Excel做数据分析，并做出一份能复用的周报模板">示例：学习用Excel做周报</div>
+            <div class="chip" data-eg="我想在30天内提升英语口语，能进行10分钟面试自我介绍与追问">示例：提升英语口语能力</div>
+            <div class="chip" data-eg="我想在3天内学会用Notion做个人知识库，并搭一个学习看板">示例：搭建Notion 知识库</div>
+          </div>
+
+          <div class="row" style="margin-top:12px;">
+            <div>
+              <label for="tone">教练风格</label>
+              <select id="tone">
+                <option value="hardcore">硬核执行（少鸡汤，多执行）</option>
+                <option value="gentle">温和陪跑（降低摩擦和压力，鼓励小步快跑）</option>
+                <option value="pm">产品经理型（目标感强/里程碑设计/阶段验收）</option>
+                <option value="richology" selected>「推荐」Richology（结构化思考，模型化输出）</option>
+              </select>
+            </div>
+            <div>
+              <label for="length">学习计划的文字长度</label>
+              <select id="length">
+                <option value="short">短（适合手机阅读）</option>
+                <option value="medium" selected>中（推荐）</option>
+                <option value="long">长（更完整）</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="primary" id="gen">生成提示词</button>
+            <button class="danger" id="reset">清空</button>
+          </div>
+
+          <div class="hint">
+            使用方式：把生成的提示词<strong>整段复制</strong>到任意 AI（ChatGPT/Claude/DeepSeek/豆包 等），即可获得学习计划并可连续追问，还可以在首次获得一个可自己复用的教练提示词。
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Output -->
+      <section class="card">
+        <div class="hd">
+          <h2>输出（复制给 AI 用）</h2>
+	<div style="display:flex;gap:10px;align-items:center;">
+   	 <button class="good" id="copy">复制提示词</button>
+   	 <button class="ghost" id="download">下载提示词</button>
+  	</div>
+          <div class="small"> </div>
+        </div>
+        <div class="bd">
+          <pre id="out">在左侧用一句话输入你的学习目标/需求，然后点「生成」。</pre>
+          <div class="meta">
+            <span id="wc">字数：0</span>
+            <span id="ts">—</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast">已复制 ✅</div>
+  </div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+
+  const goalEl = $("goal");
+  const toneEl = $("tone");
+  const lenEl  = $("length");
+  const outEl  = $("out");
+  const wcEl   = $("wc");
+  const tsEl   = $("ts");
+  const toast  = $("toast");
+
+  function nowStr(){
+    const d = new Date();
+    const pad = (n)=>String(n).padStart(2,"0");
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  function wordCount(s){
+    // 粗略：中文按字符计，英文按空格计 —— 用长度近似即可
+    return s.trim().length;
+  }
+
+  function vibeStyle(tone){
+    switch(tone){
+      case "hardcore":
+        return {
+          tagline: "硬核执行：少讲道理，多给动作。每一步都要可完成、可验收。",
+          constraints: "风格：直给、强约束、可执行。避免空话。"
+        };
+      case "gentle":
+        return {
+          tagline: "温和陪跑：降低摩擦，小步快跑，允许不完美但要持续。",
+          constraints: "风格：友好、鼓励、拆得更小。避免压迫感。"
+        };
+      case "pm":
+        return {
+          tagline: "产品经理型：目标、里程碑、验收标准、风险预案，一套走通。",
+          constraints: "风格：结构化、里程碑驱动、强调验收与风险。"
+        };
+      case "richology":
+      default:
+        return {
+          tagline: "Richology：结构化思考，模型化输出。把学习变成可复用系统。",
+          constraints: "风格：框架清晰、模型化表达、结果导向。"
+        };
+    }
+  }
+
+  function lengthRule(len){
+    if(len === "short") return "每个小节尽量精炼，总输出控制在约 600–900 字。";
+    if(len === "long")  return "尽量完整，允许更细的步骤与示例，总输出可到 1500–2200 字。";
+    return "默认平衡：清晰结构 + 可执行步骤，总输出约 900–1500 字。";
+  }
+
+  function buildPrompt(userGoal, tone, len){
+    const style = vibeStyle(tone);
+    const lenRuleText = lengthRule(len);
+
+    // A/B 结构：AI收到这段后，会先追问（<=5），再即使回答不全也生成A+B。
+    return `你是一名「AI学习教练 + 训练设计师」。你的工作不是讲道理，而是把用户的一句话学习需求，转成可执行的训练系统，并给出一段可复用的“教练提示词”。
+
+【你的风格】
+- ${style.tagline}
+- ${style.constraints}
+- 输出长度规则：${lenRuleText}
+- 默认用中文；当用户指定需要英文/双语时再切换。
+
+【用户一句话】
+${userGoal}
+
+【工作规则（必须遵守）】
+1) 你必须先提出最多 5 个追问，补齐关键信息；如果用户不回答或回答不全，你要用最合理的默认值继续。
+2) 你必须输出两部分：
+   A. 给用户的学习行动方案（今天就能开始做）
+   B. 给 AI 的“教练提示词”（可复制给任何 AI 继续执行）
+3) 你的方案必须强调：动作、产出物、验收标准、复盘与中断恢复（失败预案）。
+4) 避免空话与泛泛建议；每一步必须可执行、可衡量。
+
+【你要追问/默认的信息（按优先级）】
+- 学习主题是什么？（从用户一句话里提取）
+- 目标结果是什么？（应试/工作应用/建立体系/做出作品）
+- 时间与节奏（周期多长、每天可投入多久）
+- 当前水平（小白/有基础/进阶）
+- 最终产出物是什么（作品/笔记/报告/演示/项目/模板）
+- 约束条件（工具、资源、场景、是否需要中文/英文）
+
+【A. 给用户的学习行动方案（必须按此结构输出）】
+1) 目标定义：一句话（含衡量标准）
+2) 启动计划（按用户周期）：每天做什么（默认每次 30–60 分钟，除非用户明确更久）
+3) 里程碑：按天/周列出里程碑（每个里程碑都要写“交付物 + 验收标准”）
+4) 训练题/练习：至少 6 个练习任务（从易到难，尽量贴近真实场景）
+5) 检验方式：如何判断学会了（客观标准/可见结果）
+6) 复盘模板：一次复盘的固定问题清单（不超过 8 条）
+7) 失败预案：如果中断了，如何最小代价恢复（给出 3 条具体动作）
+
+【B. 给 AI 的“教练提示词”（必须可复制复用）】
+用下面格式输出（必须完整）：
+- 角色：你是谁
+- 目标：把用户带到什么结果（含验收）
+- 输入：你将向用户收集什么信息（最多 5 问）
+- 过程：你如何拆解、如何设计练习、如何迭代（每次输出都带下一步）
+- 输出：你以什么结构输出
+- 约束：语言、长度、避免空话、可执行与可验收
+
+现在开始：先提出最多 5 个追问。随后，无论用户回答是否完整，都继续输出 学习计划 和 可复用的教练提示词。`;
+  }
+
+  function setOutput(text){
+    outEl.textContent = text;
+    wcEl.textContent = "字数：" + wordCount(text);
+    tsEl.textContent = "生成时间：" + nowStr();
+  }
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(()=>toast.classList.remove("show"), 1100);
+  }
+
+  $("gen").addEventListener("click", () => {
+    const userGoal = (goalEl.value || "").trim();
+    if(!userGoal){
+      showToast("先输入一句话目标 🙂");
+      goalEl.focus();
+      return;
+    }
+    const prompt = buildPrompt(userGoal, toneEl.value, lenEl.value);
+    setOutput(prompt);
+    showToast("已生成 ✅");
+  });
+
+  $("copy").addEventListener("click", async () => {
+    const text = outEl.textContent || "";
+    if(!text || text.includes("在左侧输入你的学习计划/需求")){
+      showToast("先生成内容再复制 🙂");
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("已复制 ✅");
+    }catch(e){
+      // fallback
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      showToast("已复制 ✅");
+    }
+  });
+
+  $("download").addEventListener("click", () => {
+    const text = outEl.textContent || "";
+    if(!text || text.includes("在左侧输入你的学习计划/需求")){
+      showToast("先生成内容再下载 🙂");
+      return;
+    }
+    const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "richology-prompt-lab.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+    showToast("已下载 ✅");
+  });
+
+  $("reset").addEventListener("click", () => {
+    goalEl.value = "";
+    setOutput("在左侧输入你的学习计划/需求，然后点「生成」。");
+    showToast("已清空");
+    goalEl.focus();
+  });
+
+  $("examples").addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if(!chip) return;
+    goalEl.value = chip.dataset.eg || "";
+    goalEl.focus();
+    showToast("已填入示例");
+  });
+</script>
+</body>
+</html>
