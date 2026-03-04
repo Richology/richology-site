@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>潘龙 A11BERICH | 终身学习者</title>
+    <meta name="description" content="潘龙（龙哥）的个人主页。企业经营顾问、内训师、职业生涯规划师。专注ToB用户增长与ToC个人成长。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Apple-style Font Stack */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: #ffffff;
+            color: #1d1d1f; /* Apple's standard dark text */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffffff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d1d6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b0b0b5;
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism for Light Mode */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card-hover:hover {
+            background-color: #e5e5ea; /* Lighter gray hover */
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+
+        /* Modal Animation */
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+            <a href="#" class="text-sm font-semibold tracking-wider text-gray-900 hover:text-gray-600 transition-colors">A11BERICH</a>
+            <div class="flex space-x-6 text-xs text-gray-500 font-medium">
+                <a href="#about" class="hover:text-black transition-colors">关于</a>
+                <a href="#expertise" class="hover:text-black transition-colors">业务</a>
+                <a href="#experience" class="hover:text-black transition-colors">经历</a>
+                <a href="#contact" class="hover:text-black transition-colors">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center px-6 pt-20 pb-16">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal">
+                <!-- Portrait Photo -->
+                <div class="flex justify-center md:justify-start">
+                    <div class="w-full max-w-sm md:max-w-md aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-gray-200">
+                        <img src="selfpic.JPEG" alt="潘龙的肖像照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+                
+                <!-- Info -->
+                <div class="text-center md:text-left">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black to-gray-600">
+                        潘龙
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-500 font-light mb-6">
+                        亦称"龙哥"
+                    </p>
+                    <div class="w-16 h-1 bg-black mb-8 rounded-full opacity-10 mx-auto md:mx-0"></div>
+                    <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-normal mb-6">
+                        安瑟 <span class="font-mono text-gray-500">A11BERICH</span><br>
+                        终身学习者 · 企业经营顾问 · 咨商心理师
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        东北出生 / 北京12年 / 定居深圳
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 pb-20">
+
+        <!-- Expertise (B2B & B2C) -->
+        <section id="expertise" class="py-24 border-b border-gray-100">
+            <h2 class="text-3xl font-bold mb-12 text-center tracking-tight reveal text-black">专业领域</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- B2B Card -->
+                <div class="bg-[#f5f5f7] rounded-3xl p-10 reveal border border-black/5 hover:bg-[#e5e5ea] transition-colors">
+                    <h3 class="text-xl font-semibold mb-4 text-black">ToB · 企业赋能</h3>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 用户增长战略咨询
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 组织提效与流程优化
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 增长团队组织适配
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 营销活动创意策划
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- B2C Card -->
+                <div class="bg-[#f5f5f7] rounded-3xl p-10 reveal border border-black/5 hover:bg-[#e5e5ea] transition-colors">
+                    <h3 class="text-xl font-semibold mb-4 text-black">ToC · 个人成长</h3>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 职业生涯规划咨询
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 咨商心理服务
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 职场人际关系处理
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-black">▪</span> 个人领导力提升辅导
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career History -->
+        <section id="experience" class="py-24 border-b border-gray-100">
+            <div class="flex flex-col md:flex-row justify-between items-baseline mb-12 reveal">
+                <h2 class="text-3xl font-bold tracking-tight text-black">职业生涯经历</h2>
+                <span class="text-gray-500 text-sm mt-2 md:mt-0">15年互联网产品运营与增长经验</span>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Job 1 -->
+                <div class="group relative pl-8 border-l border-gray-200 reveal">
+                    <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-gray-300 rounded-full group-hover:bg-black transition-colors"></div>
+                    <div class="mb-1">
+                        <span class="text-black text-lg font-semibold">火花思维 Spark Education</span>
+                        <span class="ml-2 px-2 py-0.5 text-xs border border-gray-300 rounded text-gray-500">美股独角兽</span>
+                    </div>
+                    <div class="text-gray-600 text-sm mb-2 font-medium">C端用户产品和运营负责人</div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        负责家长端App变革，主导产品与运营体系搭建，推动用户规模化增长。
+                    </p>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="group relative pl-8 border-l border-gray-200 reveal">
+                    <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-gray-300 rounded-full group-hover:bg-black transition-colors"></div>
+                    <div class="mb-1">
+                        <span class="text-black text-lg font-semibold">卓正医疗 Distinct HealthCare</span>
+                        <span class="ml-2 px-2 py-0.5 text-xs border border-gray-300 rounded text-gray-500">高端私立医疗</span>
+                    </div>
+                    <div class="text-gray-600 text-sm mb-2 font-medium">资深用户运营总监</div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        服务于全球高端医疗连锁品牌（港股IPO中），负责高净值用户运营体系。
+                    </p>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="group relative pl-8 border-l border-gray-200 reveal">
+                    <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-gray-300 rounded-full group-hover:bg-black transition-colors"></div>
+                    <div class="mb-1">
+                        <span class="text-black text-lg font-semibold">超级猩猩 Supermonkey</span>
+                    </div>
+                    <div class="text-gray-600 text-sm mb-2 font-medium">高级增长运营经理</div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        国内知名健身连锁品牌，负责用户增长与社群运营策略。
+                    </p>
+                </div>
+
+                <!-- Job 4 -->
+                <div class="group relative pl-8 border-l border-gray-200 reveal">
+                    <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-gray-300 rounded-full group-hover:bg-black transition-colors"></div>
+                    <div class="mb-1">
+                        <span class="text-black text-lg font-semibold">果壳网 Guokr</span>
+                        <span class="ml-2 px-2 py-0.5 text-xs border border-gray-300 rounded text-gray-500">在行/分答</span>
+                    </div>
+                    <div class="text-gray-600 text-sm mb-2 font-medium">产品运营负责人</div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        负责现象级知识付费产品「在行App」与「分答App」的运营工作。
+                    </p>
+                </div>
+
+                 <!-- Job 5 -->
+                 <div class="group relative pl-8 border-l border-gray-200 reveal">
+                    <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-gray-300 rounded-full group-hover:bg-black transition-colors"></div>
+                    <div class="mb-1">
+                        <span class="text-black text-lg font-semibold">搜狐畅游 Changyou</span>
+                        <span class="ml-2 px-2 py-0.5 text-xs border border-gray-300 rounded text-gray-500">NASDAQ上市</span>
+                    </div>
+                    <div class="text-gray-600 text-sm mb-2 font-medium">渠道运营专家</div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        国内领先的游戏开发和运营商，负责核心渠道运营与维护。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Consulting Clients -->
+        <section class="py-24 border-b border-gray-100">
+            <h2 class="text-3xl font-bold mb-8 tracking-tight reveal text-black">咨询服务足迹</h2>
+            <p class="text-gray-600 mb-8 max-w-2xl reveal">
+                作为外脑与顾问，我协助多家机构完成战略型营销活动、业务诊断、经营数据分析及团队职业化素养提升。
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+                <!-- Client Logos/Names -->
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">七幕人生</div>
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">LingoAce</div>
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">恒盈电投</div>
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">新枝App</div>
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">泡泡狐口才</div>
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">水木青训</div>
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">领视教育</div>
+                <div class="p-4 bg-[#f5f5f7] rounded-xl text-center text-gray-600 text-sm hover:bg-[#e5e5ea] transition-colors cursor-default">哈哈学教育</div>
+            </div>
+        </section>
+
+        <!-- Qualifications & Contact -->
+        <section id="contact" class="py-24 reveal">
+            <div class="bg-[#f5f5f7] rounded-3xl p-8 md:p-12 text-center border border-gray-100">
+                <h2 class="text-2xl font-bold mb-6 text-black">资质认证</h2>
+                <div class="flex flex-wrap justify-center gap-3 mb-10">
+                    <span class="px-4 py-2 rounded-full border border-gray-300 text-gray-600 text-xs tracking-wider bg-white">亚洲职业生涯规划发展中心认证</span>
+                    <span class="px-4 py-2 rounded-full border border-gray-300 text-gray-600 text-xs tracking-wider bg-white">人才技能认证管理中心认证</span>
+                    <span class="px-4 py-2 rounded-full border border-gray-300 text-gray-600 text-xs tracking-wider bg-white">职业生涯咨询师</span>
+                    <span class="px-4 py-2 rounded-full border border-gray-300 text-gray-600 text-xs tracking-wider bg-white">咨商心理师</span>
+                </div>
+
+                <div class="w-full h-px bg-gray-200 mb-10"></div>
+
+                <h2 class="text-3xl font-bold mb-6 text-black">Let's Connect</h2>
+                <p class="text-gray-600 mb-8 max-w-lg mx-auto">
+                    微信公众号、即刻App内容创作者。<br>
+                    最近一年，已帮助几十位陌生来访者解决职业生涯发展难题。
+                </p>
+                
+                <div class="flex justify-center space-x-6">
+                    <button id="wechatBtn" class="px-8 py-3 bg-black text-white font-semibold rounded-full hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200 cursor-pointer">
+                        WeChat
+                    </button>
+                    <button id="jikeBtn" class="px-8 py-3 bg-white text-black font-semibold rounded-full border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
+                        Jike
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Logo Section -->
+    <div class="text-center py-12">
+        <img src="logo.PNG" alt="A11BERICH Logo" class="mx-auto max-w-xs w-48 h-auto opacity-80 hover:opacity-100 transition-opacity">
+    </div>
+
+    <!-- WeChat QR Code Modal -->
+    <div id="wechatModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="backdrop-filter: blur(8px);">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative animate-fadeIn">
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h3 class="text-2xl font-bold text-center mb-6 text-black">添加微信</h3>
+            <div class="flex justify-center mb-4">
+                <img src="wechat.jpg" alt="微信二维码" class="max-w-full h-auto rounded-2xl shadow-lg">
+            </div>
+            <p class="text-center text-gray-600 text-sm">扫描二维码添加微信</p>
+        </div>
+    </div>
+
+    <!-- Jike QR Code Modal -->
+    <div id="jikeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="backdrop-filter: blur(8px);">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative animate-fadeIn">
+            <button id="closeJikeModal" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h3 class="text-2xl font-bold text-center mb-6 text-black">关注即刻</h3>
+            <div class="flex justify-center mb-4">
+                <img src="jike.png" alt="即刻二维码" class="max-w-full h-auto rounded-2xl shadow-lg">
+            </div>
+            <p class="text-center text-gray-600 text-sm">扫描二维码关注即刻</p>
+        </div>
+    </div>
+
+    <footer class="text-center py-8 text-xs text-gray-400 border-t border-gray-100">
+        <p>Copyright © 2025 A11BERICH. Since 2021.</p>
+        <p class="mt-2">
+            <a href="https://beian.mps.gov.cn/" rel="noreferrer" target="_blank" class="text-blue-600 underline hover:text-blue-800">粤ICP备2025488115号-1</a>
+        </p>
+    </footer>
+
+    <script>
+        // Simple Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.reveal');
+            elements.forEach(el => observer.observe(el));
+
+            // WeChat Modal Control
+            const wechatBtn = document.getElementById('wechatBtn');
+            const wechatModal = document.getElementById('wechatModal');
+            const closeModal = document.getElementById('closeModal');
+
+            wechatBtn.addEventListener('click', () => {
+                wechatModal.classList.remove('hidden');
+            });
+
+            closeModal.addEventListener('click', () => {
+                wechatModal.classList.add('hidden');
+            });
+
+            // Close modal when clicking outside
+            wechatModal.addEventListener('click', (e) => {
+                if (e.target === wechatModal) {
+                    wechatModal.classList.add('hidden');
+                }
+            });
+
+            // Close modal with ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!wechatModal.classList.contains('hidden')) {
+                        wechatModal.classList.add('hidden');
+                    }
+                    if (!jikeModal.classList.contains('hidden')) {
+                        jikeModal.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Jike Modal Control
+            const jikeBtn = document.getElementById('jikeBtn');
+            const jikeModal = document.getElementById('jikeModal');
+            const closeJikeModal = document.getElementById('closeJikeModal');
+
+            jikeBtn.addEventListener('click', () => {
+                jikeModal.classList.remove('hidden');
+            });
+
+            closeJikeModal.addEventListener('click', () => {
+                jikeModal.classList.add('hidden');
+            });
+
+            // Close Jike modal when clicking outside
+            jikeModal.addEventListener('click', (e) => {
+                if (e.target === jikeModal) {
+                    jikeModal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
