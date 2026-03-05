@@ -52,9 +52,6 @@
       justify-content:space-between;
       margin-bottom:18px;
     }
-    .brand{
-      display:flex; flex-direction:column; gap:6px;
-    }
     .title{
       font-size:28px;
       font-weight:800;
@@ -64,19 +61,6 @@
       color:var(--muted);
       font-size:14px;
       line-height:1.5;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      border-radius:999px;
-      color:var(--muted);
-      font-size:13px;
-      user-select:none;
-      white-space:nowrap;
     }
     .grid{
       display:grid;
@@ -296,19 +280,206 @@ button.danger{
   background: rgba(255,255,255,.88);
   color: var(--text);
 }
+	  /* ===== Top Nav (match homepage glass-nav) ===== */
+.glass-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  background: rgba(255,255,255,.78);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.nav-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height: 56px;
+}
+
+.nav-brand{
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-decoration:none;
+  color: #111;
+  opacity:.92;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.nav-links a{
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(29,29,31,.62);
+  text-decoration:none;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+
+.nav-links a:hover{
+  color:#111;
+  background: rgba(0,0,0,.05);
+}
+
+.nav-pill{
+  margin-left: 2px;
+  padding: 6px 12px !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,.05);
+  color: rgba(29,29,31,.72) !important;
+}
+
+.nav-pill:hover{
+  background: rgba(0,0,0,.10);
+  color:#111 !important;
+}
+
+/* 给页面内容让出顶部导航高度，避免被盖住 */
+.wrap{
+  padding-top: 86px; /* 原来是 28px，这里叠加导航高度 */
+}
+
+/* 手机适配：导航自动换行，不挤 */
+@media (max-width: 640px){
+  .nav-inner{ padding: 10px 14px; }
+  .nav-links{ gap:8px; }
+  .nav-links a{ padding:6px 6px; }
+}
+	  /* ===== Hero (match homepage style) ===== */
+
+.hero{
+  margin-bottom: 36px;
+  padding-top: 10px;
+}
+
+.hero-inner{
+  text-align:center;
+  max-width:720px;
+  margin:0 auto;
+}
+
+.hero-title{
+  font-size:34px;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  color:#1d1d1f;
+  margin-bottom:10px;
+}
+
+.hero-subtitle{
+  font-size:15px;
+  color:rgba(29,29,31,.65);
+  margin-bottom:16px;
+}
+
+.hero-badge{
+  display:inline-block;
+  font-size:12px;
+  color:rgba(29,29,31,.65);
+  background:rgba(0,0,0,.05);
+  padding:6px 12px;
+  border-radius:999px;
+}
+
+/* mobile */
+@media (max-width:640px){
+
+  .hero-title{
+    font-size:28px;
+  }
+
+  .hero-subtitle{
+    font-size:14px;
+  }
+
+}
+	  .hero-subtitle span{
+  display:block;
+}
+
+.hero-subtitle{
+  max-width:720px;
+  margin:0 auto 18px auto;
+  line-height:1.6;
+  font-size:15px;
+  color:rgba(29,29,31,.65);
+}
+
+/* 桌面端：三行合并为一行 */
+@media (min-width: 768px){
+
+  .hero-subtitle span{
+    display:inline;
+  }
+
+}
+	.hero-note{
+  text-align:center;
+  font-size:13px;
+  color:rgba(29,29,31,.55);
+  margin-bottom:28px;
+}
   </style>
 </head>
 <body>
+	<nav class="glass-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">A11BERICH</a>
+    <div class="nav-links">
+      <a href="/#top">关于</a>
+      <a href="/#expertise">业务</a>
+      <a href="/#experience">经历</a>
+      <a href="/#contact">联系</a>
+      <a href="/tools/prompt-lab.html" class="nav-pill">🧠 AI Prompt Lab</a>
+    </div>
+  </div>
+</nav>
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="title">Richology Prompt Lab</div>
-        <div class="subtitle">
-          用一句话输入你的学习需求 → 生成一段<strong>可复制给任何 AI</strong>的「学习教练提示词」，可以自动追问精准定位需求 + 输出学习行动方案 + 可复用的万能教练提示词。
-        </div>
-      </div>
-      <div class="pill">⚡ Richology · 授人以鱼&授人以渔 ⚡</div>
-    </header>
+	  <header class="hero">
+
+  <div class="hero-inner">
+
+    <div class="hero-title">
+      Richology Prompt Lab
+    </div>
+
+    <div class="hero-subtitle">
+
+<span class="line1">
+用一句话输入你的学习需求
+</span>
+
+<span class="line2">
+→ 生成一段<strong>可复制给任何 AI</strong>的「学习教练提示词」
+</span>
+
+<span class="line3">
+自动追问精准定位需求 + 输出学习行动方案 + 可复用的万能教练提示词
+</span>
+
+</div>
+<div class="hero-note">
+🧠 输入学习目标 → 30 秒生成 AI 学习教练
+</div>
+    <div class="hero-badge">
+      Richology · 授人以鱼 & 授人以渔
+    </div>
+
+  </div>
+
+</header>
 
     <div class="grid">
       <!-- Left: Builder -->
