@@ -80,6 +80,69 @@
         .nav-scrolled{
             box-shadow: 0 6px 24px rgba(0,0,0,.06);
 }
+        /* Scroll hint (guided): label + line + arrow, clickable, auto-hide */
+.scroll-hint{
+  position:absolute;
+  left:50%;
+  bottom:14px;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:999px;
+  text-decoration:none;
+  color:rgba(0,0,0,.45);
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.06);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  z-index:5;
+  transition: background .2s ease, color .2s ease, opacity .2s ease;
+}
+
+.scroll-hint:hover{
+  background:rgba(255,255,255,.9);
+  color:rgba(0,0,0,.65);
+}
+
+.scroll-hint__label{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:600;
+  opacity:.9;
+}
+
+.scroll-hint__line{
+  width:1px;
+  height:18px;
+  background:rgba(0,0,0,.12);
+}
+
+.scroll-hint__arrow{
+  width:18px;
+  height:18px;
+  animation: hint-float 1.6s ease-in-out infinite;
+}
+
+@keyframes hint-float{
+  0%,100%{ transform: translateY(0); opacity:.65; }
+  50%    { transform: translateY(5px); opacity:1; }
+}
+
+.scroll-hint.is-hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+@media (max-width:640px){
+  .scroll-hint{ bottom:10px; padding:9px 10px; gap:7px; }
+  .scroll-hint__label{ font-size:10px; }
+  .scroll-hint__line{ height:16px; }
+  .scroll-hint__arrow{ width:16px; height:16px; }
+}
     </style>
 </head>
 <body class="antialiased selection:bg-black selection:text-white">
@@ -99,7 +162,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative min-h-screen flex items-center px-6 pt-20 pb-16">
+    <header class="relative min-h-screen flex items-center px-6 pt-20 pb-24">
         <div class="max-w-6xl mx-auto w-full">
             <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal">
                 <!-- Portrait Photo -->
@@ -129,9 +192,18 @@
             </div>
         </div>
         
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-        </div>
+        <a id="scrollHint"
+   href="#expertise"
+   aria-label="向下滚动到专业领域"
+   class="scroll-hint"
+>
+  <span class="scroll-hint__label">Scroll</span>
+  <span class="scroll-hint__line" aria-hidden="true"></span>
+  <svg class="scroll-hint__arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+  </svg>
+</a>
     </header>
 
     <main class="max-w-4xl mx-auto px-6 pb-20">
@@ -369,7 +441,26 @@
 
             const elements = document.querySelectorAll('.reveal');
             elements.forEach(el => observer.observe(el));
+        // Scroll hint 自动隐藏
+        const hint = document.getElementById('scrollHint');
 
+        if (hint) {
+
+          const toggleHint = () => {
+
+            if (window.scrollY > 30) {
+              hint.classList.add('is-hidden');
+            } else {
+              hint.classList.remove('is-hidden');
+            }
+
+          };
+
+          window.addEventListener('scroll', toggleHint, { passive: true });
+
+          toggleHint();
+
+        }
             // WeChat Modal Control
             const wechatBtn = document.getElementById('wechatBtn');
             const wechatModal = document.getElementById('wechatModal');
