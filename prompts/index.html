@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Richology Prompts | 示例库</title>
+  <meta name="description" content="Richology Prompt Lab 的精选示例与用法。"/>
+  <style>
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1000px 520px at 20% 0%, rgba(124,92,255,.14), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(0,0,0,.06), transparent 55%),
+        #fff;
+      color:#1d1d1f;
+    }
+    .glass-nav{
+      position: fixed; top:0; left:0; right:0; z-index:999;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav-inner{
+      max-width:1100px; margin:0 auto; padding:10px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      min-height:56px;
+    }
+    .nav-brand{
+      font-size:13px; font-weight:700; letter-spacing:.12em;
+      text-decoration:none; color:#111; opacity:.92;
+    }
+    .nav-links{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
+    .nav-links a{
+      font-size:12px; font-weight:600; color:rgba(29,29,31,.62);
+      text-decoration:none; padding:6px 8px; border-radius:10px;
+    }
+    .nav-links a:hover{color:#111; background: rgba(0,0,0,.05);}
+    .nav-pill{
+      padding:6px 12px !important; border-radius:999px !important;
+      background: rgba(0,0,0,.05); color:rgba(29,29,31,.72) !important;
+    }
+    .wrap{max-width:980px; margin:0 auto; padding:96px 18px 56px;}
+    h1{font-size:34px; letter-spacing:-.02em; margin:0 0 10px;}
+    p.lead{margin:0 0 18px; color:rgba(29,29,31,.62); line-height:1.7;}
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin: 18px 0 26px;}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:12px; text-decoration:none;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
+      color: rgba(29,29,31,.78);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.70));
+      border-color: rgba(124,92,255,.55);
+      color:#fff;
+    }
+    .grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px;}
+    @media (max-width:720px){ .grid{grid-template-columns:1fr;} }
+    .card{
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius:18px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.10);
+      overflow:hidden;
+    }
+    .card-hd{padding:14px 14px 10px; border-bottom:1px solid rgba(0,0,0,.06); background: rgba(255,255,255,.55);}
+    .card-title{font-weight:700; margin:0 0 6px;}
+    .card-meta{font-size:12px; color:rgba(29,29,31,.55); margin:0;}
+    .card-bd{padding:14px;}
+    textarea{
+      width:100%; min-height:120px; resize:vertical;
+      border-radius:14px; border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
+      padding:12px; font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color:#1d1d1f;
+      box-sizing:border-box;
+    }
+    .copy{margin-top:10px;}
+  </style>
+</head>
+<body>
+
+  <nav class="glass-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">A11BERICH</a>
+      <div class="nav-links">
+        <a href="/#top">关于</a>
+        <a href="/#expertise">业务</a>
+        <a href="/#experience">经历</a>
+        <a href="/#contact">联系</a>
+        <a href="/prompt" class="nav-pill">🧠 Prompt Lab</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <h1>Richology Prompts 示例库</h1>
+    <p class="lead">这里放你最常用、最有效的“学习教练”输入示例。点按钮进入工具，或复制示例直接去生成。</p>
+
+    <div class="cta-row">
+      <a class="btn primary" href="/prompt">🧠 打开 Prompt Lab</a>
+      <a class="btn" href="/tools/prompt-lab.html">打开原始页面</a>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-hd">
+          <p class="card-title">示例 1：三天上手 vibe coding</p>
+          <p class="card-meta">适合：短期冲刺 / 快速做出可访问网页工具</p>
+        </div>
+        <div class="card-bd">
+          <textarea readonly>我想在3天内学会 vibe coding 并做出一个可访问的网页工具。我的基础是：不懂编程。我的目标是：完成一个可发布的MVP。请作为学习教练，先追问澄清关键变量，再给出每日行动清单、验收标准和复盘问题。</textarea>
+          <div class="copy">
+            <button class="btn" onclick="copyText(this)">复制示例</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">
+          <p class="card-title">示例 2：考试备考学习计划</p>
+          <p class="card-meta">适合：题库训练 / 高反馈学习</p>
+        </div>
+        <div class="card-bd">
+          <textarea readonly>我要备考心理咨询师考试，手里有多套PDF题库。我每天可用时间2小时，目标4周通过。请作为学习教练：先追问信息差，然后输出可执行的4周计划（每日任务+指标），并给一套我每天可以复制给AI的督学提示词。</textarea>
+          <div class="copy">
+            <button class="btn" onclick="copyText(this)">复制示例</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">
+          <p class="card-title">示例 3：打造个人品牌内容系统</p>
+          <p class="card-meta">适合：Richology 内容生产 / 结构化输出</p>
+        </div>
+        <div class="card-bd">
+          <textarea readonly>我在做个人品牌 Richology，核心是“结构化思考，模型化输出”。我希望每周产出3条短视频+1篇公众号文章。请作为学习教练：追问我的受众、题材边界、素材来源；然后输出我的内容生产流程（从选题→脚本→发布→复盘）和可复用提示词。</textarea>
+          <div class="copy">
+            <button class="btn" onclick="copyText(this)">复制示例</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">
+          <p class="card-title">示例 4：职场能力提升</p>
+          <p class="card-meta">适合：ToB增长 / 方案写作 / PPT表达</p>
+        </div>
+        <div class="card-bd">
+          <textarea readonly>我想提升“写方案+做PPT+讲清楚”的能力。每周5小时，持续8周。请作为学习教练：先追问我的岗位场景、输出物标准和现有作品；然后给训练项目（刻意练习任务）+每周验收+复盘提示词。</textarea>
+          <div class="copy">
+            <button class="btn" onclick="copyText(this)">复制示例</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function copyText(btn){
+      const ta = btn.closest('.card-bd').querySelector('textarea');
+      navigator.clipboard.writeText(ta.value);
+      btn.textContent = "已复制";
+      setTimeout(()=>btn.textContent="复制示例", 900);
+    }
+  </script>
+</body>
+</html>
