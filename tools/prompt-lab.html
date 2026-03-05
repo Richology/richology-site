@@ -431,6 +431,19 @@ button.danger{
   color:rgba(29,29,31,.55);
   margin-bottom:28px;
 }
+.nav-links-share{
+  font-size:12px;
+  font-weight:600;
+  color:rgba(29,29,31,.62);
+  text-decoration:none;
+  padding:6px 8px;
+  border-radius:10px;
+}
+
+.nav-links-share:hover{
+  color:#111;
+  background: rgba(0,0,0,.05);
+}
   </style>
 </head>
 <body>
@@ -442,7 +455,9 @@ button.danger{
       <a href="/#expertise">业务</a>
       <a href="/#experience">经历</a>
       <a href="/#contact">联系</a>
+		<a href="#" class="nav-links-share" onclick="sharePromptLab(); return false;">分享</a>
       <a href="/tools/prompt-lab.html" class="nav-pill">🧠 AI Prompt Lab</a>
+	
     </div>
   </div>
 </nav>
@@ -735,6 +750,29 @@ ${userGoal}
     goalEl.focus();
     showToast("已填入示例");
   });
+	function sharePromptLab(){
+
+  const url = location.origin + "/prompt";
+
+  const text = "Richology Prompt Lab：输入一句学习需求，生成可复制给任何AI的学习教练提示词。";
+
+  if (navigator.share) {
+
+    navigator.share({
+      title: "Richology Prompt Lab",
+      text: text,
+      url: url
+    }).catch(()=>{});
+
+    return;
+
+  }
+
+  navigator.clipboard.writeText(url).then(()=>{
+    alert("链接已复制：" + url);
+  });
+
+}
 </script>
 </body>
 </html>
