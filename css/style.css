@@ -7,7 +7,9 @@ a{
 
 
 /* ===== Navigation ===== */
-
+.hidden{
+  display:none;
+}
 .glass-nav{
   position:fixed;
   top:0;
