@@ -7,6 +7,9 @@ a{
 
 
 /* ===== Navigation ===== */
+.nav-pill.active{
+  box-shadow:0 0 0 2px rgba(124,92,255,.35);
+}
 .hidden{
   display:none;
 }
