@@ -136,23 +136,60 @@
 </head>
 <body class="antialiased selection:bg-black selection:text-white">
     <div id="top"></div>
-    <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 min-h-14 py-2 sm:py-0 flex flex-wrap items-center justify-between gap-y-2">
-            <a href="#" class="text-sm font-semibold tracking-wider text-gray-900 hover:text-gray-600 transition-colors">A11BERICH</a>
-            <div class="flex items-center flex-wrap justify-end gap-x-4 gap-y-2 text-xs text-gray-500 font-medium">
-                <a href="#top" class="hover:text-black transition-colors">关于</a>
-                <a href="#expertise" class="hover:text-black transition-colors">业务</a>
-                <a href="#experience" class="hover:text-black transition-colors">经历</a>
-                <a href="#contact" class="hover:text-black transition-colors">联系</a>
-                <a href="/tools/prompt-lab.html" class="ml-2 px-3 py-1 rounded-full bg-black/5 hover:bg-black/10 text-gray-700 hover:text-black transition-colors">🧠 AI Prompt Lab</a>
-                <a href="/learning" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black text-white hover:opacity-90 transition-colors">
-                    <span aria-hidden="true">🎯</span>
-                     <span class="whitespace-nowrap">Learning Coach</span>
-                  </a>
-            </div>
-        </div>
-    </nav>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 min-h-14 py-2 flex items-center justify-between">
+
+    <a href="#top" class="text-sm font-semibold tracking-wider text-gray-900 hover:text-gray-600 transition-colors">
+      A11BERICH
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-x-4 text-xs text-gray-500 font-medium">
+      <a href="#top" class="hover:text-black transition-colors">关于</a>
+      <a href="#expertise" class="hover:text-black transition-colors">业务</a>
+      <a href="#experience" class="hover:text-black transition-colors">经历</a>
+      <a href="#contact" class="hover:text-black transition-colors">联系</a>
+
+      <a href="/tools/prompt-lab.html"
+        class="ml-1 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black/5 hover:bg-black/10 text-gray-700 hover:text-black transition-colors">
+        🧠 Prompt Lab
+      </a>
+
+      <a href="/learning"
+        class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black text-white hover:opacity-90 transition-colors">
+        🎯 Learning Coach
+      </a>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="flex md:hidden items-center gap-2">
+
+      <a href="/learning"
+        class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black text-white text-xs hover:opacity-90 transition-colors">
+        🎯 Coach
+      </a>
+
+      <button id="menuToggle"
+        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/5 text-gray-700 hover:bg-black/10 transition">
+        ☰
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden border-t border-black/5 bg-white/90 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2 text-sm text-gray-700 font-medium">
+      <a href="#top" class="py-2">关于</a>
+      <a href="#expertise" class="py-2">业务</a>
+      <a href="#experience" class="py-2">经历</a>
+      <a href="#contact" class="py-2">联系</a>
+      <a href="/tools/prompt-lab.html" class="py-2">🧠 Prompt Lab</a>
+    </div>
+  </div>
+
+</nav>
 
     <!-- Hero Section -->
     <header class="relative min-h-screen flex items-center px-6 pt-20 pb-24">
@@ -505,5 +542,23 @@
             });
         });
     </script>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if(menuToggle){
+  menuToggle.addEventListener('click', function(){
+    mobileMenu.classList.toggle('hidden');
+  });
+}
+
+const links = document.querySelectorAll('#mobileMenu a');
+
+links.forEach(link=>{
+  link.addEventListener('click', ()=>{
+    mobileMenu.classList.add('hidden');
+  });
+});
+</script>
 </body>
 </html>
