@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Richology Learning Coach</title>
+  <meta name="description" content="用一句话输入你的学习目标，我会像学习教练一样，帮你追问、澄清、拆解，并生成一套可执行的学习方案。" />
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#1d1d1f;
+      --muted:rgba(29,29,31,.62);
+      --line:rgba(0,0,0,.08);
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --danger:#ef4444;
+      --shadow:0 18px 50px rgba(0,0,0,.08);
+      --radius:22px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 520px at 20% 0%, rgba(124,92,255,.14), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(0,0,0,.06), transparent 55%),
+        #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* ===== Top Nav ===== */
+    .glass-nav{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:999;
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(22px) saturate(180%);
+      -webkit-backdrop-filter:blur(22px) saturate(180%);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+
+    .nav-inner{
+      max-width:1100px;
+      margin:0 auto;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      min-height:56px;
+      flex-wrap:wrap;
+    }
+
+    .nav-brand{
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-decoration:none;
+      color:#111;
+      opacity:.92;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      font-size:12px;
+      font-weight:600;
+      color:rgba(29,29,31,.62);
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:10px;
+    }
+
+    .nav-links a:hover{
+      color:#111;
+      background:rgba(0,0,0,.05);
+    }
+
+    .nav-pill{
+      padding:6px 12px !important;
+      border-radius:999px !important;
+      background:rgba(0,0,0,.05);
+      color:rgba(29,29,31,.72) !important;
+      border:1px solid transparent;
+    }
+
+    .nav-pill.active{
+      background:rgba(124,92,255,.10);
+      color:rgba(124,92,255,.95) !important;
+      border:1px solid rgba(124,92,255,.18);
+    }
+
+    /* ===== Layout ===== */
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:96px 18px 60px;
+    }
+
+    .hero{
+      margin-bottom:34px;
+      padding-top:18px;
+    }
+
+    .hero-inner{
+      text-align:center;
+      max-width:820px;
+      margin:0 auto;
+    }
+
+    .hero-title{
+      font-size:42px;
+      line-height:1.04;
+      font-weight:700;
+      letter-spacing:-0.04em;
+      color:#1d1d1f;
+      margin-bottom:14px;
+    }
+
+    .hero-subtitle{
+      max-width:780px;
+      margin:0 auto 16px auto;
+      line-height:1.7;
+      font-size:16px;
+      color:rgba(29,29,31,.66);
+    }
+
+    .hero-subtitle strong{
+      font-weight:700;
+      color:rgba(29,29,31,.92);
+    }
+
+    .hero-subtitle span{
+      display:block;
+    }
+
+    .hero-note{
+      text-align:center;
+      font-size:13px;
+      color:rgba(29,29,31,.52);
+      margin-bottom:20px;
+    }
+
+    .hero-badge{
+      display:inline-block;
+      font-size:12px;
+      color:rgba(29,29,31,.62);
+      background:rgba(0,0,0,.045);
+      padding:7px 13px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.05);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:18px;
+      margin-top:18px;
+    }
+
+    /* ===== Cards ===== */
+    .card{
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(20px) saturate(165%);
+      -webkit-backdrop-filter:blur(20px) saturate(165%);
+      border:1px solid rgba(0,0,0,.07);
+      border-radius:22px;
+      box-shadow:0 18px 50px rgba(0,0,0,.08);
+      overflow:hidden;
+    }
+
+    .card .hd{
+      padding:18px 18px 14px;
+      border-bottom:1px solid rgba(0,0,0,.06);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background:rgba(255,255,255,.62);
+    }
+
+    .card .hd h2{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+
+    .card .bd{
+      padding:18px;
+    }
+
+    .small{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:8px;
+      font-weight:600;
+    }
+
+    textarea, input, select{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.86);
+      color:var(--text);
+      padding:13px 14px;
+      outline:none;
+      transition:.18s;
+      font-family:var(--sans);
+    }
+
+    textarea{
+      min-height:108px;
+      resize:vertical;
+      line-height:1.6;
+    }
+
+    textarea:focus, input:focus, select:focus{
+      border-color:rgba(124,92,255,.42);
+      box-shadow:0 0 0 4px rgba(124,92,255,.11);
+      background:rgba(255,255,255,.98);
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      padding:8px 11px;
+      border:1px solid rgba(0,0,0,.07);
+      border-radius:999px;
+      background:rgba(255,255,255,.74);
+      cursor:pointer;
+      user-select:none;
+      transition:.15s;
+    }
+
+    .chip:hover{
+      border-color:rgba(124,92,255,.28);
+      color:var(--text);
+      background:rgba(255,255,255,.98);
+      box-shadow:0 8px 18px rgba(124,92,255,.08);
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .stack{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .radios{
+      display:grid;
+      gap:10px;
+    }
+
+    .radio-card{
+      border:1px solid rgba(0,0,0,.07);
+      border-radius:18px;
+      padding:12px 12px;
+      background:rgba(255,255,255,.64);
+      cursor:pointer;
+      transition:.15s;
+    }
+
+    .radio-card:hover{
+      background:rgba(255,255,255,.9);
+      border-color:rgba(124,92,255,.18);
+      box-shadow:0 10px 24px rgba(124,92,255,.05);
+    }
+
+    .radio-card input{
+      width:auto;
+      margin-right:8px;
+      accent-color:var(--accent);
+    }
+
+    .radio-title{
+      font-size:13px;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:4px;
+    }
+
+    .radio-desc{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    button{
+      border:0;
+      border-radius:14px;
+      padding:11px 14px;
+      font-weight:700;
+      color:var(--text);
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(0,0,0,.08);
+      cursor:pointer;
+      transition:.16s transform, .16s background, .16s border, .16s box-shadow;
+      user-select:none;
+      font-family:var(--sans);
+      box-shadow:0 4px 14px rgba(0,0,0,.04);
+    }
+
+    button:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.95);
+      box-shadow:0 10px 24px rgba(0,0,0,.06);
+    }
+
+    button.primary{
+      color:#fff;
+      background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.72));
+      border-color:rgba(124,92,255,.52);
+    }
+
+    button.good{
+      color:#fff;
+      background:linear-gradient(135deg, rgba(34,197,94,.95), rgba(34,197,94,.72));
+      border-color:rgba(34,197,94,.48);
+    }
+
+    button.danger{
+      background:rgba(239,68,68,.08);
+      border-color:rgba(239,68,68,.18);
+      color:rgba(29,29,31,.82);
+    }
+
+    button.ghost{
+      background:transparent;
+    }
+
+    .hint{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    .question{
+      padding:14px;
+      border:1px solid rgba(0,0,0,.07);
+      border-radius:18px;
+      background:rgba(255,255,255,.62);
+    }
+
+    .question-title{
+      font-size:13px;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:8px;
+    }
+
+    .result-block{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .result-card{
+      border:1px solid rgba(0,0,0,.07);
+      background:rgba(255,255,255,.72);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .result-card h3{
+      margin:0 0 8px 0;
+      font-size:14px;
+    }
+
+    pre{
+      margin:0;
+      white-space:pre-wrap;
+      word-break:break-word;
+      font-family:var(--mono);
+      font-size:12.5px;
+      line-height:1.65;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(0,0,0,.07);
+      border-radius:16px;
+      padding:15px;
+      color:var(--text);
+    }
+
+    .muted-note{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:8px;
+      line-height:1.55;
+    }
+
+    .divider{
+      height:1px;
+      background:rgba(0,0,0,.07);
+      margin:16px 0;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(0,0,0,.07);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      box-shadow:0 12px 30px rgba(0,0,0,.08);
+      font-size:13px;
+      opacity:0;
+      pointer-events:none;
+      transition:.2s opacity, .2s transform;
+      z-index:9999;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(-4px);
+    }
+
+    @media (min-width:768px){
+      .hero-subtitle span{
+        display:inline;
+      }
+    }
+
+    @media (max-width: 960px){
+      .grid{grid-template-columns:1fr;}
+    }
+
+    @media (max-width: 640px){
+      .nav-inner{padding:10px 14px;}
+      .nav-links{gap:8px;}
+      .nav-links a{padding:6px 6px;}
+      .wrap{padding:92px 14px 48px;}
+      .hero{margin-bottom:26px; padding-top:8px;}
+      .hero-title{font-size:31px; line-height:1.08;}
+      .hero-subtitle{font-size:14px; line-height:1.65;}
+      .row{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="glass-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">A11BERICH</a>
+      <div class="nav-links">
+        <a href="/#top">关于</a>
+        <a href="/#expertise">业务</a>
+        <a href="/#experience">经历</a>
+        <a href="/#contact">联系</a>
+        <a href="/prompt" class="nav-pill">🧠 Prompt Lab</a>
+        <a href="/learning" class="nav-pill active">🎯 Learning Coach</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-title">Richology Learning Coach</div>
+
+        <div class="hero-subtitle">
+          <span>用一句话输入你的学习目标</span>
+          <span>→ 我会像学习教练一样，帮你追问、澄清、拆解，并生成一套<strong>可执行的学习方案</strong></span>
+          <span>适合：技能学习、考试备考、AI 学习、职业能力提升</span>
+        </div>
+
+        <div class="hero-note">
+          输入目标 → 回答几个关键问题 → 获得学习行动方案与可复用提示词
+        </div>
+
+        <div class="hero-badge">Richology · 结构化思考 · 模型化输出</div>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <section class="card">
+        <div class="hd">
+          <h2>开始你的学习教练流程</h2>
+          <div class="small">一句话启动 · 参数保留 · 清空可重来</div>
+        </div>
+
+        <div class="bd">
+
+          <label for="goal">你想学习什么？</label>
+          <textarea id="goal" placeholder="例如：我想在 3 天内学会 vibe coding，并做出一个可访问的网页工具"></textarea>
+
+          <div class="chips" id="examples">
+            <div class="chip" data-eg="我想在 3 天内学会 vibe coding，并做出一个可访问的网页工具">3 天学会 vibe coding</div>
+            <div class="chip" data-eg="我想备考心理咨询师考试，希望用 30 天建立稳定的刷题和复盘系统">备考心理咨询师考试</div>
+            <div class="chip" data-eg="我想在 30 天内建立 AI 产品的基本认知，并做出一个最小可用工具">系统学习 AI 产品</div>
+            <div class="chip" data-eg="我想提升写作与表达能力，希望每周都能产出更清晰的内容">提升写作与表达</div>
+            <div class="chip" data-eg="我想建立个人品牌内容系统，让自己能稳定输出短视频和文章">建立个人品牌内容系统</div>
+            <div class="chip" data-eg="我想学会做更清晰、更专业的 PPT，用在职场和汇报场景里">学会做高质量 PPT</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div>
+              <label>选择教练风格</label>
+              <div class="radios">
+                <label class="radio-card">
+                  <div class="radio-title">
+                    <input type="radio" name="coach_style" value="温和陪跑型">
+                    温和陪跑型
+                  </div>
+                  <div class="radio-desc">更温和、更鼓励，适合容易拖延或焦虑的学习者。</div>
+                </label>
+
+                <label class="radio-card">
+                  <div class="radio-title">
+                    <input type="radio" name="coach_style" value="结构拆解型">
+                    结构拆解型
+                  </div>
+                  <div class="radio-desc">更强调逻辑、框架和问题拆解，适合想建立体系的人。</div>
+                </label>
+
+                <label class="radio-card">
+                  <div class="radio-title">
+                    <input type="radio" name="coach_style" value="推进执行型">
+                    推进执行型
+                  </div>
+                  <div class="radio-desc">少讲道理，直接行动，适合想快速推进的人。</div>
+                </label>
+
+                <label class="radio-card">
+                  <div class="radio-title">
+                    <input type="radio" name="coach_style" value="Richology 型" checked>
+                    Richology 型
+                  </div>
+                  <div class="radio-desc">强调结构化思考、模型化输出，最接近 Richology 方法论。</div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label>学习计划长度</label>
+              <div class="radios">
+                <label class="radio-card">
+                  <div class="radio-title">
+                    <input type="radio" name="plan_length" value="极短">
+                    极短
+                  </div>
+                  <div class="radio-desc">适合只想快速拿到行动方向的人。</div>
+                </label>
+
+                <label class="radio-card">
+                  <div class="radio-title">
+                    <input type="radio" name="plan_length" value="折中" checked>
+                    折中
+                  </div>
+                  <div class="radio-desc">兼顾清晰与完整，适合大多数用户。</div>
+                </label>
+
+                <label class="radio-card">
+                  <div class="radio-title">
+                    <input type="radio" name="plan_length" value="完整">
+                    完整
+                  </div>
+                  <div class="radio-desc">适合希望系统学习、长期保存的人。</div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="primary" id="startAnalysis">开始分析</button>
+            <button class="danger" id="clearInput">清空</button>
+          </div>
+
+          <div class="hint">
+            第一版是“半智能体流程”：你先输入一句学习目标，再回答 4 个关键问题，最后获得学习行动方案 + 可复用教练提示词。
+          </div>
+
+          <div class="divider"></div>
+
+          <div id="questionSection" class="hidden">
+            <label>为了给你更合适的学习方案，我还想确认几个问题</label>
+
+            <div class="stack">
+
+              <div class="question">
+                <div class="question-title">1. 你现在的基础是什么？</div>
+                <select id="q_level">
+                  <option value="完全小白">完全小白</option>
+                  <option value="有一点基础">有一点基础</option>
+                  <option value="已经实践过">已经实践过</option>
+                </select>
+              </div>
+
+              <div class="question">
+                <div class="question-title">2. 你的目标结果是什么？</div>
+                <select id="q_outcome">
+                  <option value="做出作品">做出作品</option>
+                  <option value="建立体系">建立体系</option>
+                  <option value="工作应用">工作应用</option>
+                  <option value="应试通过">应试通过</option>
+                  <option value="还不确定">还不确定</option>
+                </select>
+              </div>
+
+              <div class="question">
+                <div class="question-title">3. 你每天 / 每周能投入多少时间？</div>
+                <select id="q_time">
+                  <option value="每天 30 分钟以内">每天 30 分钟以内</option>
+                  <option value="每天 30-60 分钟">每天 30-60 分钟</option>
+                  <option value="每天 1-2 小时">每天 1-2 小时</option>
+                  <option value="每天 2 小时以上">每天 2 小时以上</option>
+                </select>
+              </div>
+
+              <div class="question">
+                <div class="question-title">4. 你的截止时间是什么？</div>
+                <input id="q_deadline" type="text" placeholder="例如：3 天 / 7 天 / 30 天 / 90 天" />
+              </div>
+            </div>
+
+            <div class="btns">
+              <button class="good" id="generatePlan">生成学习方案</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="hd">
+          <h2>结果区</h2>
+          <div class="small">学习方案 + 可复用提示词</div>
+        </div>
+
+        <div class="bd result-block">
+
+          <div class="result-card">
+            <h3>你的学习行动方案</h3>
+            <pre id="studyPlanOutput">完成左侧流程后，这里会生成你的学习行动方案。</pre>
+            <div class="btns">
+              <button id="copyPlanBtn">复制学习方案</button>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <h3>可复用教练提示词</h3>
+            <div class="muted-note">
+              你可以把这段提示词复制或下载，继续在其他 AI 中使用。
+            </div>
+            <pre id="promptOutput">完成左侧流程后，这里会生成你的可复用教练提示词。</pre>
+            <div class="btns">
+              <button id="copyPromptBtn">复制提示词</button>
+              <button id="downloadPromptBtn">下载提示词</button>
+              <button class="ghost" id="restartBtn">重新开始</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <div class="toast" id="toast">已完成 ✅</div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const goalEl = $("goal");
+    const questionSection = $("questionSection");
+    const studyPlanOutput = $("studyPlanOutput");
+    const promptOutput = $("promptOutput");
+    const toast = $("toast");
+
+    const styleDefaults = {
+      "温和陪跑型": "折中",
+      "结构拆解型": "完整",
+      "推进执行型": "极短",
+      "Richology 型": "折中"
+    };
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1100);
+    }
+
+    function getSelectedStyle(){
+      const selected = document.querySelector('input[name="coach_style"]:checked');
+      return selected ? selected.value : "Richology 型";
+    }
+
+    function getSelectedLength(){
+      const selected = document.querySelector('input[name="plan_length"]:checked');
+      return selected ? selected.value : "折中";
+    }
+
+    function setLengthByStyle(style){
+      const target = styleDefaults[style];
+      if (!target) return;
+      const input = document.querySelector(`input[name="plan_length"][value="${target}"]`);
+      if (input) input.checked = true;
+    }
+
+    function buildToneGuide(style){
+      if (style === "温和陪跑型") {
+        return "语气温和、鼓励、小步推进，降低摩擦感，帮助用户建立持续行动信心。";
+      }
+      if (style === "结构拆解型") {
+        return "强调逻辑、结构、框架和分层拆解，让学习路径清晰可执行。";
+      }
+      if (style === "推进执行型") {
+        return "强调行动优先、短平快、少解释，尽快让用户进入执行状态。";
+      }
+      return "强调结构化思考、模型化输出，把学习变成可复用的方法系统。";
+    }
+
+    function buildLengthGuide(length){
+      if (length === "极短") {
+        return "输出尽量短，保留目标、3 步行动、复盘问题即可。";
+      }
+      if (length === "完整") {
+        return "输出尽量完整，包含目标、阶段计划、练习、验收、复盘、失败预案。";
+      }
+      return "输出保持平衡，兼顾清晰与完整，适合大多数用户。";
+    }
+
+    function buildStudyPlan(data){
+      const { goal, style, length, level, outcome, time, deadline } = data;
+
+      const title = `【Richology Learning Coach｜${style}｜${length}】`;
+      const deadlineText = deadline || "未明确截止时间";
+      const pace = time;
+      const targetName = outcome;
+
+      let plan = `${title}
+
+一、目标定义
+你的当前目标是：${goal}
+当前基础：${level}
+目标结果：${targetName}
+可投入时间：${pace}
+截止时间：${deadlineText}
+
+二、学习路径建议
+`;
+
+      if (length === "极短") {
+        plan += `1. 先把目标收缩成一个最小可执行结果，避免一开始追求“全都会”。
+2. 用最短路径先做一个可见成果，例如一个小作品、一次模拟输出、一次完整练习。
+3. 每次学习后都做 3 分钟复盘，确认下一步最小动作。`;
+      } else if (length === "折中") {
+        plan += `1. 先澄清目标：把“想学习”转化为“想达成什么具体结果”。
+2. 再做拆解：把最终目标拆成 3 个阶段，每个阶段只解决一个核心问题。
+3. 再做行动：每个阶段安排固定训练任务，用可见成果来检验学习效果。
+4. 再做复盘：每次练完都记录“学到了什么、哪里卡住、下一步是什么”。`;
+      } else {
+        plan += `1. 目标澄清阶段：把模糊目标具体化，明确你到底想通过学习获得什么结果。
+2. 路径拆解阶段：把目标拆成若干阶段，每个阶段有清晰的学习重点与交付物。
+3. 训练执行阶段：围绕真实场景设计练习，用练习替代理论堆积。
+4. 反馈校准阶段：通过复盘、检验和失败预案持续修正学习策略。
+5. 输出沉淀阶段：把学到的内容沉淀成模板、清单、作品或可复用方法。`;
+      }
+
+      plan += `
+
+三、启动计划
+`;
+
+      if (length === "极短") {
+        plan += `- 第一步：今天先明确你的最小成果物是什么。
+- 第二步：立刻安排 1 次 ${pace} 的专注练习。
+- 第三步：练习后写下 3 条复盘问题。`;
+      } else if (length === "折中") {
+        plan += `- 第 1 次行动：明确“本阶段要拿到的最小成果”。
+- 第 2 次行动：安排第一次专注练习，用 ${pace} 完成一个最小任务。
+- 第 3 次行动：对第一次结果做复盘，并决定下一轮修正方向。`;
+      } else {
+        plan += `- 第 1 步：明确本轮学习的最小成果物。
+- 第 2 步：拆出第一个阶段的关键任务。
+- 第 3 步：安排第一次完整练习。
+- 第 4 步：建立复盘模板。
+- 第 5 步：为自己设定阶段验收点。`;
+      }
+
+      plan += `
+
+四、训练任务
+`;
+
+      if (length === "极短") {
+        plan += `- 用一句话重新定义你的学习目标。
+- 做 1 次最小练习。
+- 写 3 条复盘问题。`;
+      } else if (length === "折中") {
+        plan += `- 任务 1：重新定义目标，让它可以被检验。
+- 任务 2：做第一次最小作品/练习。
+- 任务 3：记录第一次练习中的困难点。
+- 任务 4：做一次优化后的第二轮练习。
+- 任务 5：把你学到的方法写成 3 条原则。`;
+      } else {
+        plan += `- 任务 1：把学习目标转化为一个可验证结果。
+- 任务 2：列出本次学习的关键障碍。
+- 任务 3：设计第一轮训练任务。
+- 任务 4：做最小作品或最小实战输出。
+- 任务 5：根据反馈修正训练路径。
+- 任务 6：总结成方法清单。
+- 任务 7：建立下一阶段的学习节奏。`;
+      }
+
+      plan += `
+
+五、检验方式
+- 你是否能说清楚“你为什么要学这个”？
+- 你是否完成了一个可见成果？
+- 你是否有下一步明确行动，而不是停在泛泛理解？
+- 你是否能把本轮学习方法复述给别人？
+
+六、复盘模板
+1. 我这次真正推进了什么？
+2. 我卡住的地方在哪里？
+3. 是能力问题、时间问题，还是目标不清？
+4. 下一轮我最应该优化哪一步？
+5. 我要保留的有效动作是什么？
+
+七、失败预案
+- 如果中断：不要补课，直接从当前最小任务重新开始。
+- 如果拖延：把任务压缩到 15 分钟也要继续。
+- 如果混乱：重新回到“目标—任务—检验”三步结构。`;
+
+      return plan;
+    }
+
+    function buildReusablePrompt(data){
+      const { goal, style, length, level, outcome, time, deadline } = data;
+
+      return `你是一名「Richology Learning Coach」。
+
+你的角色定位：
+你不是普通答题型 AI，而是一名以“结构化思考，模型化输出”为核心方法的学习教练。你要帮助用户把模糊学习目标转化为可执行、可复盘、可持续推进的学习系统。
+
+当前用户信息：
+- 用户目标：${goal}
+- 当前基础：${level}
+- 目标结果：${outcome}
+- 可投入时间：${time}
+- 截止时间：${deadline || "未明确"}
+- 教练风格：${style}
+- 输出长度：${length}
+
+你的风格要求：
+${buildToneGuide(style)}
+
+输出长度要求：
+${buildLengthGuide(length)}
+
+你的工作规则：
+1. 不讲空话，不输出泛泛建议。
+2. 所有建议都必须能转化为具体行动。
+3. 优先帮助用户明确目标、拆解路径、建立训练任务和复盘机制。
+4. 输出必须围绕“结构化思考，模型化输出”展开。
+5. 如果用户目标模糊，先帮用户缩小目标，而不是直接给大而全方案。
+
+请按照以下结构输出：
+一、目标定义
+二、学习路径建议
+三、启动计划
+四、训练任务
+五、检验方式
+六、复盘模板
+七、失败预案
+
+请开始工作。`;
+    }
+
+    function collectFormData(){
+      return {
+        goal: goalEl.value.trim(),
+        style: getSelectedStyle(),
+        length: getSelectedLength(),
+        level: $("q_level").value,
+        outcome: $("q_outcome").value,
+        time: $("q_time").value,
+        deadline: $("q_deadline").value.trim()
+      };
+    }
+
+    function resetQuestionAnswers(){
+      $("q_level").value = "完全小白";
+      $("q_outcome").value = "做出作品";
+      $("q_time").value = "每天 30 分钟以内";
+      $("q_deadline").value = "";
+    }
+
+    function fullReset(){
+      goalEl.value = "";
+      questionSection.classList.add("hidden");
+      studyPlanOutput.textContent = "完成左侧流程后，这里会生成你的学习行动方案。";
+      promptOutput.textContent = "完成左侧流程后，这里会生成你的可复用教练提示词。";
+      document.querySelector('input[name="coach_style"][value="Richology 型"]').checked = true;
+      setLengthByStyle("Richology 型");
+      resetQuestionAnswers();
+    }
+
+    function downloadText(filename, text){
+      const blob = new Blob([text], { type:"text/plain;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    }
+
+    document.querySelectorAll('input[name="coach_style"]').forEach(input => {
+      input.addEventListener("change", (e) => {
+        setLengthByStyle(e.target.value);
+      });
+    });
+
+    $("examples").addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip");
+      if (!chip) return;
+      goalEl.value = chip.dataset.eg || "";
+      showToast("已填入示例");
+    });
+
+    $("startAnalysis").addEventListener("click", () => {
+      const goal = goalEl.value.trim();
+      if (!goal) {
+        showToast("先输入一句学习目标 🙂");
+        goalEl.focus();
+        return;
+      }
+      questionSection.classList.remove("hidden");
+      questionSection.scrollIntoView({ behavior:"smooth", block:"start" });
+      showToast("请回答 4 个关键问题");
+    });
+
+    $("clearInput").addEventListener("click", () => {
+      goalEl.value = "";
+      showToast("已清空输入");
+      goalEl.focus();
+    });
+
+    $("generatePlan").addEventListener("click", () => {
+      const data = collectFormData();
+      if (!data.goal) {
+        showToast("先输入一句学习目标 🙂");
+        goalEl.focus();
+        return;
+      }
+
+      const plan = buildStudyPlan(data);
+      const reusablePrompt = buildReusablePrompt(data);
+
+      studyPlanOutput.textContent = plan;
+      promptOutput.textContent = reusablePrompt;
+      showToast("已生成学习方案 ✅");
+      studyPlanOutput.scrollIntoView({ behavior:"smooth", block:"start" });
+    });
+
+    $("copyPlanBtn").addEventListener("click", async () => {
+      const text = studyPlanOutput.textContent || "";
+      if (!text || text.includes("完成左侧流程后")) {
+        showToast("先生成学习方案 🙂");
+        return;
+      }
+      await navigator.clipboard.writeText(text);
+      showToast("已复制学习方案 ✅");
+    });
+
+    $("copyPromptBtn").addEventListener("click", async () => {
+      const text = promptOutput.textContent || "";
+      if (!text || text.includes("完成左侧流程后")) {
+        showToast("先生成提示词 🙂");
+        return;
+      }
+      await navigator.clipboard.writeText(text);
+      showToast("已复制提示词 ✅");
+    });
+
+    $("downloadPromptBtn").addEventListener("click", () => {
+      const text = promptOutput.textContent || "";
+      if (!text || text.includes("完成左侧流程后")) {
+        showToast("先生成提示词再下载 🙂");
+        return;
+      }
+      downloadText("richology-learning-coach-prompt.txt", text);
+      showToast("已下载提示词 ✅");
+    });
+
+    $("restartBtn").addEventListener("click", () => {
+      fullReset();
+      window.scrollTo({ top:0, behavior:"smooth" });
+      showToast("已重新开始");
+    });
+
+    setLengthByStyle("Richology 型");
+  </script>
+</body>
+</html>
