@@ -42,7 +42,84 @@
             opacity: 1;
             transform: translateY(0);
         }
+        /* Hero ambient motion */
+        .hero-ambient{
+            position:absolute;
+            inset:0;
+            overflow:hidden;
+            pointer-events:none;
+            z-index:0;
+        }
+        
+        .hero-ambient::before,
+        .hero-ambient::after{
+            content:"";
+            position:absolute;
+            border-radius:9999px;
+            filter:blur(70px);
+            opacity:.28;
+            will-change:transform;
+        }
+        
+        .hero-ambient::before{
+            width:420px;
+            height:420px;
+            background:rgba(124,92,255,.16);
+            top:8%;
+            left:6%;
+            animation:floatGlowA 16s ease-in-out infinite;
+        }
+        
+        .hero-ambient::after{
+            width:360px;
+            height:360px;
+            background:rgba(0,0,0,.06);
+            right:8%;
+            bottom:10%;
+            animation:floatGlowB 18s ease-in-out infinite;
+        }
+        .hero-photo{
+            animation:heroFloat 7s ease-in-out infinite;
+        }
+        
+        .hero-copy{
+            animation:heroCopyFloat 8s ease-in-out infinite;
+        }
 
+@keyframes heroFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-4px);
+    }
+}
+
+@keyframes heroCopyFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(3px);
+    }
+}
+@keyframes floatGlowA{
+    0%,100%{
+        transform:translate3d(0,0,0) scale(1);
+    }
+    50%{
+        transform:translate3d(28px,-18px,0) scale(1.06);
+    }
+}
+
+@keyframes floatGlowB{
+    0%,100%{
+        transform:translate3d(0,0,0) scale(1);
+    }
+    50%{
+        transform:translate3d(-24px,20px,0) scale(1.08);
+    }
+}
         /* Glassmorphism for Light Mode */
         .glass-nav {
             background: rgba(255, 255, 255, 0.8);
@@ -192,17 +269,20 @@
 
     <!-- Hero Section -->
     <header class="relative min-h-screen flex items-center px-6 pt-20 pb-24">
-        <div class="max-w-6xl mx-auto w-full">
-            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal">
+
+    <div class="hero-ambient"></div>
+
+    <div class="max-w-6xl mx-auto w-full relative z-10">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal">
                 <!-- Portrait Photo -->
                 <div class="flex justify-center md:justify-start">
-                    <div class="w-full max-w-sm md:max-w-md aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-gray-200">
-                        <img src="selfpic.JPEG" alt="潘龙的肖像照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-                    </div>
+                    <div class="w-full max-w-sm md:max-w-md aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-gray-200 hero-photo">
+    <img src="selfpic.JPEG" alt="潘龙的肖像照" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+</div>
                 </div>
                 
                 <!-- Info -->
-                <div class="text-center md:text-left">
+                <div class="text-center md:text-left hero-copy">
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black to-gray-600">
                         安瑟 A11BERICH
                     </h1>
