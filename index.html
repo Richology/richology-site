@@ -189,60 +189,112 @@
                 transform: scale(1);
             }
         }
+        /* Easter Egg Name Glow */
+        .hero-name{
+            transition:
+                filter 0.28s ease,
+                text-shadow 0.28s ease,
+                transform 0.28s ease,
+                opacity 0.28s ease;
+            will-change: transform, filter;
+        }
+        
+        .hero-name.is-pressing{
+            animation: heroNamePulse 3s linear forwards;
+        }
+        
+        .hero-name.is-success{
+            animation: heroNameSuccess 0.18s ease forwards;
+        }
+        
+        @keyframes heroNamePulse{
+            0%{
+                transform: translateY(0) scale(1);
+                filter: brightness(1);
+                text-shadow: 0 0 0 rgba(124,92,255,0);
+            }
+            20%{
+                transform: translateY(-1px) scale(1.008);
+                filter: brightness(1.03);
+                text-shadow: 0 0 10px rgba(124,92,255,.10);
+            }
+            60%{
+                transform: translateY(-1px) scale(1.012);
+                filter: brightness(1.05);
+                text-shadow: 0 0 16px rgba(124,92,255,.18);
+            }
+            100%{
+                transform: translateY(0) scale(1.015);
+                filter: brightness(1.06);
+                text-shadow: 0 0 18px rgba(124,92,255,.22);
+            }
+        }
+        
+        @keyframes heroNameSuccess{
+            0%{
+                transform: scale(1);
+            }
+            50%{
+                transform: scale(1.03);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
         /* Easter Egg Progress Ring */
-.egg-progress{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    bottom:-22px;
-    width:44px;
-    height:44px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    opacity:.95;
-}
-
-.egg-progress-svg{
-    width:44px;
-    height:44px;
-    transform:rotate(-90deg);
-    overflow:visible;
-}
-
-.egg-progress-track{
-    fill:none;
-    stroke:rgba(0,0,0,.08);
-    stroke-width:2.5;
-}
-
-.egg-progress-bar{
-    fill:none;
-    stroke:rgba(124,92,255,.68);
-    stroke-width:2.5;
-    stroke-linecap:round;
-    stroke-dasharray:113.1;
-    stroke-dashoffset:113.1;
-    transition:stroke-dashoffset 3s linear;
-    filter:drop-shadow(0 0 6px rgba(124,92,255,.18));
-}
-
-.egg-progress.is-running .egg-progress-bar{
-    stroke-dashoffset:0;
-}
-
-@media (max-width:640px){
-    .egg-progress{
-        bottom:-18px;
-        width:40px;
-        height:40px;
-    }
-
-    .egg-progress-svg{
-        width:40px;
-        height:40px;
-    }
-}
+        .egg-progress{
+            position:absolute;
+            left:50%;
+            transform:translateX(-50%);
+            bottom:-22px;
+            width:44px;
+            height:44px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            opacity:.95;
+        }
+        
+        .egg-progress-svg{
+            width:44px;
+            height:44px;
+            transform:rotate(-90deg);
+            overflow:visible;
+        }
+        
+        .egg-progress-track{
+            fill:none;
+            stroke:rgba(0,0,0,.08);
+            stroke-width:2.5;
+        }
+        
+        .egg-progress-bar{
+            fill:none;
+            stroke:rgba(124,92,255,.68);
+            stroke-width:2.5;
+            stroke-linecap:round;
+            stroke-dasharray:113.1;
+            stroke-dashoffset:113.1;
+            transition:stroke-dashoffset 3s linear;
+            filter:drop-shadow(0 0 6px rgba(124,92,255,.18));
+        }
+        
+        .egg-progress.is-running .egg-progress-bar{
+            stroke-dashoffset:0;
+        }
+        
+        @media (max-width:640px){
+            .egg-progress{
+                bottom:-18px;
+                width:40px;
+                height:40px;
+            }
+        
+            .egg-progress-svg{
+                width:40px;
+                height:40px;
+            }
+        }
         /* Easter Egg Gift Animation */
         .gift-box-wrap{
             display:flex;
@@ -410,16 +462,24 @@
                 
                 <!-- Info -->
                 <div class="text-center md:text-left hero-copy">
-                <div class="relative inline-block">
-                <h1 id="easterEggTrigger" class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black to-gray-600 cursor-default select-none">安瑟 A11BERICH</h1>
-                <div id="eggProgress" class="egg-progress hidden" aria-hidden="true">
-                    <svg class="egg-progress-svg" viewBox="0 0 44 44">
-                        <circle class="egg-progress-track" cx="22" cy="22" r="18"></circle>
-                        <circle class="egg-progress-bar" cx="22" cy="22" r="18"></circle>
-                    </svg>
-                </div>
-            </div>
-                    <p class="text-xl md:text-2xl text-gray-500 font-light mb-6">结构化思考，模型化输出</p>
+
+    <div class="hero-name-wrap">
+        <h1 id="easterEggTrigger"
+            class="hero-name text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black to-gray-600 cursor-default select-none">
+            安瑟 A11BERICH
+        </h1>
+
+        <div id="eggProgress" class="egg-progress hidden" aria-hidden="true">
+            <svg class="egg-progress-svg" viewBox="0 0 44 44">
+                <circle class="egg-progress-track" cx="22" cy="22" r="18"></circle>
+                <circle class="egg-progress-bar" cx="22" cy="22" r="18"></circle>
+            </svg>
+        </div>
+    </div>
+
+    <p class="text-xl md:text-2xl text-gray-500 font-light mb-6">
+        结构化思考，模型化输出
+    </p>
                     <div class="w-16 h-1 bg-black mb-8 rounded-full opacity-10 mx-auto md:mx-0"></div>
                     <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-normal mb-6">教育科技公司创始人 · 终身学习者<br>
                          企业经营顾问 · 职业生涯规划师
