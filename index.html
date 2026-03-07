@@ -189,6 +189,37 @@
                 transform: scale(1);
             }
         }
+        /* Easter Egg Gift Animation */
+        .gift-box-wrap{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        
+        .gift-box-body{
+            font-size:72px;
+            line-height:1;
+            animation: giftPop 0.9s ease forwards;
+            transform-origin:center;
+        }
+
+        @keyframes giftPop{
+            0%{
+                transform: scale(.5) rotate(-8deg);
+                opacity: 0;
+            }
+            35%{
+                transform: scale(1.12) rotate(6deg);
+                opacity: 1;
+            }
+            60%{
+                transform: scale(.96) rotate(-3deg);
+            }
+            100%{
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
         /* Apple-like sticky header enhancements */.glass-nav{
             background: rgba(255,255,255,.78);
             backdrop-filter: blur(22px) saturate(180%);
@@ -325,9 +356,7 @@
                 
                 <!-- Info -->
                 <div class="text-center md:text-left hero-copy">
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black to-gray-600">
-                        安瑟 A11BERICH
-                    </h1>
+                    <h1 id="easterEggTrigger" class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-black to-gray-600 cursor-default select-none">安瑟 A11BERICH</h1>
                     <p class="text-xl md:text-2xl text-gray-500 font-light mb-6">
                         结构化思考，模型化输出
                     </p>
@@ -584,20 +613,46 @@
         </div>
     </div>
     <!-- WeChat Official Account QR Code Modal -->
-<div id="wechatOfficialModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="backdrop-filter: blur(8px);">
-    <div class="bg-white rounded-3xl p-8 max-w-md w-full relative animate-fadeIn">
-        <button id="closeWechatOfficialModal" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-        <h3 class="text-2xl font-bold text-center mb-6 text-black">关注公众号</h3>
-        <div class="flex justify-center mb-4">
-            <img src="wechat-official.jpg" alt="微信公众号二维码" class="max-w-full h-auto rounded-2xl shadow-lg">
+    <div id="wechatOfficialModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="backdrop-filter: blur(8px);">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative animate-fadeIn">
+            <button id="closeWechatOfficialModal" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h3 class="text-2xl font-bold text-center mb-6 text-black">关注公众号</h3>
+            <div class="flex justify-center mb-4">
+                <img src="wechat-official.jpg" alt="微信公众号二维码" class="max-w-full h-auto rounded-2xl shadow-lg">
+            </div>
+            <p class="text-center text-gray-600 text-sm">扫描二维码关注微信公众号</p>
         </div>
-        <p class="text-center text-gray-600 text-sm">扫描二维码关注微信公众号</p>
     </div>
-</div>
+    <!-- Gift Reveal Overlay -->
+    <div id="giftRevealModal" class="hidden fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center p-4" style="backdrop-filter: blur(8px);">
+        <div class="gift-box-wrap">
+            <div class="gift-box-body">🎁</div>
+        </div>
+    </div>
+
+    <!-- Name Easter Egg Modal -->
+    <div id="nameEggModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="backdrop-filter: blur(8px);">
+        <div class="bg-white rounded-3xl p-8 max-w-lg w-full relative animate-fadeIn shadow-2xl">
+            <button id="closeNameEggModal" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+    
+            <div class="text-center mb-5 text-4xl">🎁</div>
+    
+            <h3 class="text-2xl font-bold text-center mb-5 text-black">小彩蛋</h3>
+    
+            <p class="text-gray-700 leading-8 text-center">
+                我是潘龙，好朋友们都叫我“龙哥”，这不是尊称，而是昵称。<br>
+                当你习惯叫我龙哥时，我们的关系一定会更加紧密且真诚。
+            </p>
+        </div>
+    </div>
     <footer class="text-center py-10 text-xs text-gray-400 border-t border-gray-100">
 
     <p>Copyright © 2021-2026 Richology. All rights reserved.</p>
@@ -648,6 +703,55 @@
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px'
+                        // Name Easter Egg
+            const easterEggTrigger = document.getElementById('easterEggTrigger');
+            const giftRevealModal = document.getElementById('giftRevealModal');
+            const nameEggModal = document.getElementById('nameEggModal');
+            const closeNameEggModal = document.getElementById('closeNameEggModal');
+
+            let pressTimer = null;
+            let hasTriggeredEgg = false;
+
+            const startPress = () => {
+                hasTriggeredEgg = false;
+                pressTimer = setTimeout(() => {
+                    hasTriggeredEgg = true;
+                    giftRevealModal.classList.remove('hidden');
+
+                    setTimeout(() => {
+                        giftRevealModal.classList.add('hidden');
+                        nameEggModal.classList.remove('hidden');
+                    }, 900);
+                }, 3000);
+            };
+
+            const cancelPress = () => {
+                clearTimeout(pressTimer);
+            };
+
+            if (easterEggTrigger) {
+                easterEggTrigger.addEventListener('mousedown', startPress);
+                easterEggTrigger.addEventListener('mouseup', cancelPress);
+                easterEggTrigger.addEventListener('mouseleave', cancelPress);
+
+                easterEggTrigger.addEventListener('touchstart', startPress, { passive: true });
+                easterEggTrigger.addEventListener('touchend', cancelPress);
+                easterEggTrigger.addEventListener('touchcancel', cancelPress);
+            }
+
+            if (closeNameEggModal) {
+                closeNameEggModal.addEventListener('click', () => {
+                    nameEggModal.classList.add('hidden');
+                });
+            }
+
+            if (nameEggModal) {
+                nameEggModal.addEventListener('click', (e) => {
+                    if (e.target === nameEggModal) {
+                        nameEggModal.classList.add('hidden');
+                    }
+                });
+            }
             };
 
             const observer = new IntersectionObserver((entries) => {
@@ -711,6 +815,12 @@
                     }
                     if (!wechatOfficialModal.classList.contains('hidden')) {
                         wechatOfficialModal.classList.add('hidden');
+                    }
+                    if (!nameEggModal.classList.contains('hidden')) {
+                        nameEggModal.classList.add('hidden');
+                    }
+                    if (!giftRevealModal.classList.contains('hidden')) {
+                        giftRevealModal.classList.add('hidden');
                     }
                 }
             });
