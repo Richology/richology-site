@@ -8,21 +8,36 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css">
     <style>
-        button,
-        a.inline-flex,
-        a.rounded-full{
-            transition:
-                transform 0.22s ease,
-                box-shadow 0.22s ease,
-                background-color 0.22s ease,
-                color 0.22s ease;
-        }
-        
-        button:hover,
-        a.inline-flex:hover,
-        a.rounded-full:hover{
-            transform: translateY(-1px);
-        }
+    button:focus-visible,
+    a:focus-visible{
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(124,92,255,.12);
+    }
+    button,
+    a.inline-flex,
+    a.rounded-full{
+        transition:
+            transform 0.22s ease,
+            box-shadow 0.22s ease,
+            background-color 0.22s ease,
+            color 0.22s ease,
+            opacity 0.22s ease;
+        will-change: transform;
+    }
+
+    button:hover,
+    a.inline-flex:hover,
+    a.rounded-full:hover{
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(0,0,0,.08);
+    }
+    
+    button:active,
+    a.inline-flex:active,
+    a.rounded-full:active{
+        transform: translateY(0) scale(.98);
+        box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    }
         /* Apple-style Font Stack */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -211,9 +226,10 @@
 }
 
 .scroll-hint:hover{
-  background: rgba(255,255,255,.80);
-  border-color: rgba(0,0,0,.22);
-  color: rgba(0,0,0,.60);
+  background: rgba(255,255,255,.84);
+  border-color: rgba(124,92,255,.22);
+  color: rgba(0,0,0,.62);
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
 }
 
 .scroll-hint__arrow{
@@ -512,20 +528,17 @@
 
         <div class="flex flex-wrap justify-center gap-4">
 
-    <button id="wechatBtn"
-    class="px-8 py-3 bg-black text-white font-semibold rounded-full hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200 cursor-pointer">
-    个人微信
-    </button>
+    <button id="wechatBtn" class="px-8 py-3 bg-black text-white font-semibold rounded-full hover:bg-gray-800 transition-all shadow-lg shadow-gray-200 hover:shadow-xl cursor-pointer">
+    微信
+</button>
 
-    <button id="jikeBtn"
-    class="px-8 py-3 bg-white text-black font-semibold rounded-full border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
-    即刻
-    </button>
+    <button id="jikeBtn" class="px-8 py-3 bg-white text-black font-semibold rounded-full border border-gray-200 hover:bg-gray-50 transition-all shadow-sm hover:shadow-md cursor-pointer">
+    即刻App
+</button>
 
-    <button id="wechatOfficialBtn"
-    class="px-8 py-3 bg-white text-black font-semibold rounded-full border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
+    <button id="wechatOfficialBtn" class="px-8 py-3 bg-white text-black font-semibold rounded-full border border-gray-200 hover:bg-gray-50 transition-all shadow-sm hover:shadow-md cursor-pointer">
     微信公众号
-    </button>
+</button>
 
 </div>
 
