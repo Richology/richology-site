@@ -703,26 +703,6 @@
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px'
-                        // Name Easter Egg
-            const easterEggTrigger = document.getElementById('easterEggTrigger');
-            const giftRevealModal = document.getElementById('giftRevealModal');
-            const nameEggModal = document.getElementById('nameEggModal');
-            const closeNameEggModal = document.getElementById('closeNameEggModal');
-
-            let pressTimer = null;
-            let hasTriggeredEgg = false;
-
-            const startPress = () => {
-                hasTriggeredEgg = false;
-                pressTimer = setTimeout(() => {
-                    hasTriggeredEgg = true;
-                    giftRevealModal.classList.remove('hidden');
-
-                    setTimeout(() => {
-                        giftRevealModal.classList.add('hidden');
-                        nameEggModal.classList.remove('hidden');
-                    }, 900);
-                }, 3000);
             };
 
             const cancelPress = () => {
@@ -752,7 +732,6 @@
                     }
                 });
             }
-            };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -764,6 +743,52 @@
 
             const elements = document.querySelectorAll('.reveal');
             elements.forEach(el => observer.observe(el));
+        // Name Easter Egg
+const easterEggTrigger = document.getElementById('easterEggTrigger');
+const giftRevealModal = document.getElementById('giftRevealModal');
+const nameEggModal = document.getElementById('nameEggModal');
+const closeNameEggModal = document.getElementById('closeNameEggModal');
+
+let pressTimer = null;
+
+const startPress = () => {
+    pressTimer = setTimeout(() => {
+        giftRevealModal.classList.remove('hidden');
+
+        setTimeout(() => {
+            giftRevealModal.classList.add('hidden');
+            nameEggModal.classList.remove('hidden');
+        }, 900);
+    }, 3000);
+};
+
+const cancelPress = () => {
+    clearTimeout(pressTimer);
+};
+
+if (easterEggTrigger) {
+    easterEggTrigger.addEventListener('mousedown', startPress);
+    easterEggTrigger.addEventListener('mouseup', cancelPress);
+    easterEggTrigger.addEventListener('mouseleave', cancelPress);
+
+    easterEggTrigger.addEventListener('touchstart', startPress, { passive: true });
+    easterEggTrigger.addEventListener('touchend', cancelPress);
+    easterEggTrigger.addEventListener('touchcancel', cancelPress);
+}
+
+if (closeNameEggModal) {
+    closeNameEggModal.addEventListener('click', () => {
+        nameEggModal.classList.add('hidden');
+    });
+}
+
+if (nameEggModal) {
+    nameEggModal.addEventListener('click', (e) => {
+        if (e.target === nameEggModal) {
+            nameEggModal.classList.add('hidden');
+        }
+    });
+}
         // Scroll hint 自动隐藏
         const hint = document.getElementById('scrollHint');
 
