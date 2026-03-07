@@ -698,198 +698,177 @@
 </footer>
 
     <script>
-        // Simple Intersection Observer for scroll animations
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px'
-            };
+document.addEventListener('DOMContentLoaded', () => {
+    // Simple Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px'
+    };
 
-            const cancelPress = () => {
-                clearTimeout(pressTimer);
-            };
-
-            if (easterEggTrigger) {
-                easterEggTrigger.addEventListener('mousedown', startPress);
-                easterEggTrigger.addEventListener('mouseup', cancelPress);
-                easterEggTrigger.addEventListener('mouseleave', cancelPress);
-
-                easterEggTrigger.addEventListener('touchstart', startPress, { passive: true });
-                easterEggTrigger.addEventListener('touchend', cancelPress);
-                easterEggTrigger.addEventListener('touchcancel', cancelPress);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
             }
-
-            if (closeNameEggModal) {
-                closeNameEggModal.addEventListener('click', () => {
-                    nameEggModal.classList.add('hidden');
-                });
-            }
-
-            if (nameEggModal) {
-                nameEggModal.addEventListener('click', (e) => {
-                    if (e.target === nameEggModal) {
-                        nameEggModal.classList.add('hidden');
-                    }
-                });
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            const elements = document.querySelectorAll('.reveal');
-            elements.forEach(el => observer.observe(el));
-        // Name Easter Egg
-const easterEggTrigger = document.getElementById('easterEggTrigger');
-const giftRevealModal = document.getElementById('giftRevealModal');
-const nameEggModal = document.getElementById('nameEggModal');
-const closeNameEggModal = document.getElementById('closeNameEggModal');
-
-let pressTimer = null;
-
-const startPress = () => {
-    pressTimer = setTimeout(() => {
-        giftRevealModal.classList.remove('hidden');
-
-        setTimeout(() => {
-            giftRevealModal.classList.add('hidden');
-            nameEggModal.classList.remove('hidden');
-        }, 900);
-    }, 3000);
-};
-
-const cancelPress = () => {
-    clearTimeout(pressTimer);
-};
-
-if (easterEggTrigger) {
-    easterEggTrigger.addEventListener('mousedown', startPress);
-    easterEggTrigger.addEventListener('mouseup', cancelPress);
-    easterEggTrigger.addEventListener('mouseleave', cancelPress);
-
-    easterEggTrigger.addEventListener('touchstart', startPress, { passive: true });
-    easterEggTrigger.addEventListener('touchend', cancelPress);
-    easterEggTrigger.addEventListener('touchcancel', cancelPress);
-}
-
-if (closeNameEggModal) {
-    closeNameEggModal.addEventListener('click', () => {
-        nameEggModal.classList.add('hidden');
-    });
-}
-
-if (nameEggModal) {
-    nameEggModal.addEventListener('click', (e) => {
-        if (e.target === nameEggModal) {
-            nameEggModal.classList.add('hidden');
-        }
-    });
-}
-        // Scroll hint 自动隐藏
-        const hint = document.getElementById('scrollHint');
-
-        if (hint) {
-
-          const toggleHint = () => {
-
-            if (window.scrollY > 30) {
-              hint.classList.add('is-hidden');
-            } else {
-              hint.classList.remove('is-hidden');
-            }
-
-          };
-
-          window.addEventListener('scroll', toggleHint, { passive: true });
-
-          toggleHint();
-
-        }
-            // WeChat Modal Control
-            const wechatBtn = document.getElementById('wechatBtn');
-            const wechatModal = document.getElementById('wechatModal');
-            const closeModal = document.getElementById('closeModal');
-
-            wechatBtn.addEventListener('click', () => {
-                wechatModal.classList.remove('hidden');
-            });
-
-            closeModal.addEventListener('click', () => {
-                wechatModal.classList.add('hidden');
-            });
-
-            // Close modal when clicking outside
-            wechatModal.addEventListener('click', (e) => {
-                if (e.target === wechatModal) {
-                    wechatModal.classList.add('hidden');
-                }
-            });
-
-            // Close modal with ESC key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    if (!wechatModal.classList.contains('hidden')) {
-                        wechatModal.classList.add('hidden');
-                    }
-                    if (!jikeModal.classList.contains('hidden')) {
-                        jikeModal.classList.add('hidden');
-                    }
-                    if (!wechatOfficialModal.classList.contains('hidden')) {
-                        wechatOfficialModal.classList.add('hidden');
-                    }
-                    if (!nameEggModal.classList.contains('hidden')) {
-                        nameEggModal.classList.add('hidden');
-                    }
-                    if (!giftRevealModal.classList.contains('hidden')) {
-                        giftRevealModal.classList.add('hidden');
-                    }
-                }
-            });
-
-            // Jike Modal Control
-            const jikeBtn = document.getElementById('jikeBtn');
-            const jikeModal = document.getElementById('jikeModal');
-            const closeJikeModal = document.getElementById('closeJikeModal');
-
-            jikeBtn.addEventListener('click', () => {
-                jikeModal.classList.remove('hidden');
-            });
-
-            closeJikeModal.addEventListener('click', () => {
-                jikeModal.classList.add('hidden');
-            });
-
-            // Close Jike modal when clicking outside
-            jikeModal.addEventListener('click', (e) => {
-                if (e.target === jikeModal) {
-                    jikeModal.classList.add('hidden');
-                }
-            });
-            // WeChat Official Account Modal Control
-            const wechatOfficialBtn = document.getElementById('wechatOfficialBtn');
-            const wechatOfficialModal = document.getElementById('wechatOfficialModal');
-            const closeWechatOfficialModal = document.getElementById('closeWechatOfficialModal');
-
-            wechatOfficialBtn.addEventListener('click', () => {
-                wechatOfficialModal.classList.remove('hidden');
-            });
-
-            closeWechatOfficialModal.addEventListener('click', () => {
-                wechatOfficialModal.classList.add('hidden');
-            });
-
-            // Close WeChat Official modal when clicking outside
-            wechatOfficialModal.addEventListener('click', (e) => {
-                if (e.target === wechatOfficialModal) {
-                    wechatOfficialModal.classList.add('hidden');
-                }
-            });
         });
-    </script>
+    }, observerOptions);
+
+    const elements = document.querySelectorAll('.reveal');
+    elements.forEach(el => observer.observe(el));
+
+    // Scroll hint 自动隐藏
+    const hint = document.getElementById('scrollHint');
+    if (hint) {
+        const toggleHint = () => {
+            if (window.scrollY > 30) {
+                hint.classList.add('is-hidden');
+            } else {
+                hint.classList.remove('is-hidden');
+            }
+        };
+
+        window.addEventListener('scroll', toggleHint, { passive: true });
+        toggleHint();
+    }
+
+    // Name Easter Egg
+    const easterEggTrigger = document.getElementById('easterEggTrigger');
+    const giftRevealModal = document.getElementById('giftRevealModal');
+    const nameEggModal = document.getElementById('nameEggModal');
+    const closeNameEggModal = document.getElementById('closeNameEggModal');
+
+    let pressTimer = null;
+
+    const startPress = () => {
+        pressTimer = setTimeout(() => {
+            if (giftRevealModal) giftRevealModal.classList.remove('hidden');
+
+            setTimeout(() => {
+                if (giftRevealModal) giftRevealModal.classList.add('hidden');
+                if (nameEggModal) nameEggModal.classList.remove('hidden');
+            }, 900);
+        }, 3000);
+    };
+
+    const cancelPress = () => {
+        clearTimeout(pressTimer);
+    };
+
+    if (easterEggTrigger) {
+        easterEggTrigger.addEventListener('mousedown', startPress);
+        easterEggTrigger.addEventListener('mouseup', cancelPress);
+        easterEggTrigger.addEventListener('mouseleave', cancelPress);
+
+        easterEggTrigger.addEventListener('touchstart', startPress, { passive: true });
+        easterEggTrigger.addEventListener('touchend', cancelPress);
+        easterEggTrigger.addEventListener('touchcancel', cancelPress);
+    }
+
+    if (closeNameEggModal) {
+        closeNameEggModal.addEventListener('click', () => {
+            if (nameEggModal) nameEggModal.classList.add('hidden');
+        });
+    }
+
+    if (nameEggModal) {
+        nameEggModal.addEventListener('click', (e) => {
+            if (e.target === nameEggModal) {
+                nameEggModal.classList.add('hidden');
+            }
+        });
+    }
+
+    // WeChat Modal Control
+    const wechatBtn = document.getElementById('wechatBtn');
+    const wechatModal = document.getElementById('wechatModal');
+    const closeModal = document.getElementById('closeModal');
+
+    if (wechatBtn && wechatModal) {
+        wechatBtn.addEventListener('click', () => {
+            wechatModal.classList.remove('hidden');
+        });
+
+        wechatModal.addEventListener('click', (e) => {
+            if (e.target === wechatModal) {
+                wechatModal.classList.add('hidden');
+            }
+        });
+    }
+
+    if (closeModal && wechatModal) {
+        closeModal.addEventListener('click', () => {
+            wechatModal.classList.add('hidden');
+        });
+    }
+
+    // Jike Modal Control
+    const jikeBtn = document.getElementById('jikeBtn');
+    const jikeModal = document.getElementById('jikeModal');
+    const closeJikeModal = document.getElementById('closeJikeModal');
+
+    if (jikeBtn && jikeModal) {
+        jikeBtn.addEventListener('click', () => {
+            jikeModal.classList.remove('hidden');
+        });
+
+        jikeModal.addEventListener('click', (e) => {
+            if (e.target === jikeModal) {
+                jikeModal.classList.add('hidden');
+            }
+        });
+    }
+
+    if (closeJikeModal && jikeModal) {
+        closeJikeModal.addEventListener('click', () => {
+            jikeModal.classList.add('hidden');
+        });
+    }
+
+    // WeChat Official Account Modal Control
+    const wechatOfficialBtn = document.getElementById('wechatOfficialBtn');
+    const wechatOfficialModal = document.getElementById('wechatOfficialModal');
+    const closeWechatOfficialModal = document.getElementById('closeWechatOfficialModal');
+
+    if (wechatOfficialBtn && wechatOfficialModal) {
+        wechatOfficialBtn.addEventListener('click', () => {
+            wechatOfficialModal.classList.remove('hidden');
+        });
+
+        wechatOfficialModal.addEventListener('click', (e) => {
+            if (e.target === wechatOfficialModal) {
+                wechatOfficialModal.classList.add('hidden');
+            }
+        });
+    }
+
+    if (closeWechatOfficialModal && wechatOfficialModal) {
+        closeWechatOfficialModal.addEventListener('click', () => {
+            wechatOfficialModal.classList.add('hidden');
+        });
+    }
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (wechatModal && !wechatModal.classList.contains('hidden')) {
+                wechatModal.classList.add('hidden');
+            }
+            if (jikeModal && !jikeModal.classList.contains('hidden')) {
+                jikeModal.classList.add('hidden');
+            }
+            if (wechatOfficialModal && !wechatOfficialModal.classList.contains('hidden')) {
+                wechatOfficialModal.classList.add('hidden');
+            }
+            if (nameEggModal && !nameEggModal.classList.contains('hidden')) {
+                nameEggModal.classList.add('hidden');
+            }
+            if (giftRevealModal && !giftRevealModal.classList.contains('hidden')) {
+                giftRevealModal.classList.add('hidden');
+            }
+        }
+    });
+});
+</script>
 <script>
 const menuToggle = document.getElementById('menuToggle');
 const mobileMenu = document.getElementById('mobileMenu');
